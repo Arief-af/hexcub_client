@@ -1,12 +1,14 @@
 <template>
   <section class="w-screen h-screen dark:bg-[#262626] bg-[#FFF] flex">
-    <section class="sm:w-[93px] w-full bg-primary flex items-center px-[30px] pt-[29px] h-full md:relative fixed left-0">
+    <section
+      class="z-20 sm:w-[93px] bg-primary flex items-center px-[30px] pt-[29px] h-full md:relative fixed left-0"
+    >
       tes
     </section>
     <Transition name="side">
       <section
         v-if="useSidebarStore().sidebar"
-        class="sm:w-[457px] w-full dark:bg-[#1E2925] sidebar-bg bg-[#FBF5F2] px-[30px] pt-[29px] h-full md:relative fixed left-0"
+        class="z-10 ml-[93px] md:ml-0 sm:w-[457px] w-full dark:bg-[#1E2925] sidebar-bg bg-[#FBF5F2] px-[30px] pt-[29px] h-full md:relative fixed left-0"
       >
         <DashboardHeader />
 
@@ -14,7 +16,7 @@
         <DashboardMenu />
       </section>
     </Transition>
-    <main class="px-[62px] w-screen h-full overflow-auto">
+    <main :class="useSidebarStore().sidebar ? '' : 'ml-[93px] md:ml-0'" class="px-[62px] w-screen h-full overflow-auto">
       <header class="flex gap-4 justify-between items-center h-[114px]">
         <section class="flex gap-5 w-full items-center">
           <div
@@ -30,7 +32,8 @@
           <div class="hidden sm:block dark:text-white">Hallo, User!</div>
         </section>
         <DropdownMenu>
-          <DropdownMenuTrigger class="bg-primary hover:bg-[#0C3E7C] text-white w-full max-w-[126px] px-2 py-2 rounded block sm:hidden"
+          <DropdownMenuTrigger
+            class="bg-primary hover:bg-[#0C3E7C] text-white w-full max-w-[126px] px-2 py-2 rounded block sm:hidden"
             >Hallo, User!</DropdownMenuTrigger
           >
           <DropdownMenuContent>
