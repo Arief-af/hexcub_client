@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-bg {
+    position: relative;
+    z-index: 0; 
+}
+
+.sidebar-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, grey 0.6px, transparent 0.001px),
+      linear-gradient(to bottom, grey 0.6px, transparent 0.001px);
+    opacity: 0.1; /* Atur nilai opacity di sini */
+    z-index: -1; /* Agar berada di belakang konten sidebar */
+}
