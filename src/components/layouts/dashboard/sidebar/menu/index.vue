@@ -5,7 +5,7 @@
         <section>
           <div
             @click="toggleActive(index)"
-            :class="item.active ? 'bg-primary text-white dark:bg-[#1D1D1D]' : 'text-primary'"
+            :class="route == item.path ? 'bg-primary text-white dark:bg-[#1D1D1D]' : 'text-primary'"
             class="relative border border-primary z-20 py-[10px] mb-5 flex gap-2 justify-between items-center px-[42px] rounded-full  hover:bg-primary hover:text-white"
           >
             <section class="flex items-center gap-[20.29px]">
@@ -43,6 +43,9 @@
 import { ref } from "vue";
 import dashboardIcon from "@/components/layouts/dashboard/icons/dashboard.svg";
 import dashboardDarkIcon from "@/components/layouts/dashboard/icons/dashboard.svg";
+import { useRouter } from "vue-router";
+const route = useRouter().currentRoute.value.fullPath;
+console.log(route);
 
 // Data array
 const data = ref([
@@ -51,32 +54,37 @@ const data = ref([
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
+    path: "/profile",
   },
   {
     name: "My Courses",
     icon: dashboardIcon,
     active: false,
+    path: "/courses",
   },
   {
     name: "Puzzle Game",
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
+    path: "/puzzle",
   },
   {
     name: "Google Meet",
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
+    path: "/puzzle/play",
   },
 ]);
 
+const router = useRouter();
 // Function to toggle item.active state
 const toggleActive = (index) => {
   if (data.value[index].subItem) {
     data.value[index].active = !data.value[index].active;
   } else {
-    alert("haa");
+    router.push({ path: data.value[index].path });
   }
 };
 </script>

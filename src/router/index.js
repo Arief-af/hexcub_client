@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from "../pages/home/index.vue";
 import PuzzlePage from "../pages/puzzle/index.vue";
+import PuzzleGamePage from "../pages/puzzle/game.vue";
 const routes = [
   {
     path: "/",
@@ -17,6 +18,16 @@ const routes = [
     path: "/puzzle",
     name: "puzzle",
     component: PuzzlePage,
+    meta: {
+      requiresAuth: true,
+      requirePasien: true,
+      title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/puzzle/play",
+    name: "game",
+    component: PuzzleGamePage,
     meta: {
       requiresAuth: true,
       requirePasien: true,

@@ -13,7 +13,7 @@
           letakan item sesuai dengan gambar tujuan!
         </p>
         <div class="flex justify-end mt-5">
-            <Button class="bg-primary hover:bg-primary px-[40px] dark:bg-primary dark:hover:bg-primary dark:text-white">Play</Button>
+            <Button @click="goTo('/puzzle/play')" class="rounded-full bg-primary hover:bg-primary px-[40px] dark:bg-primary dark:hover:bg-primary dark:text-white">Play</Button>
         </div>
       </div>
       <div class="lg:w-1/2 w-full hidden lg:flex">
@@ -29,7 +29,12 @@
 import DashboardLayout from "@/layouts/dashboard/index.vue";
 import { Button } from "@/components/ui/button";
 import { useDarkModeStore } from "@/stores/darkmode";
+import { useRouter } from "vue-router";
 const darkMode = useDarkModeStore();
+const router = useRouter();
+const goTo = (path) => {
+    router.push({ path: path });   
+}
 </script>
 
 <style lang="scss" scoped></style>
