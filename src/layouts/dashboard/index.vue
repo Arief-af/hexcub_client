@@ -29,7 +29,7 @@
               alt="icon"
             />
           </div>
-          <div class="hidden sm:block dark:text-white">Hallo, User!</div>
+          <Logo />
         </section>
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -73,6 +73,7 @@ import DashboardMenu from "@/components/layouts/dashboard/sidebar/menu/index.vue
 import { Button } from "@/components/ui/button";
 import { useDarkModeStore } from "@/stores/darkmode";
 import { useSidebarStore } from "@/stores/sidebar";
+import Logo from "@/components/logo/index.vue";
 import {
   DropdownMenu,
   DropdownMenuContent,
