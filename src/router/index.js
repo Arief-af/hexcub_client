@@ -1,11 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from "../pages/home/index.vue";
+import PuzzlePage from "../pages/puzzle/index.vue";
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomePage,
+    meta: {
+      requiresAuth: true,
+      requirePasien: true,
+      title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/puzzle",
+    name: "puzzle",
+    component: PuzzlePage,
     meta: {
       requiresAuth: true,
       requirePasien: true,
