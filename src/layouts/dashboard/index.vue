@@ -16,7 +16,7 @@
         <DashboardMenu />
       </section>
     </Transition>
-    <main :class="useSidebarStore().sidebar ? '' : 'ml-[93px] md:ml-0'" class="px-[62px] w-screen h-full overflow-auto">
+    <main :class="useSidebarStore().sidebar ? '' : 'ml-[93px] md:ml-0'" class="px-4 md:px-[62px] w-screen h-full overflow-auto">
       <header class="flex gap-4 justify-between items-center h-[114px]">
         <section class="flex gap-5 w-full items-center">
           <div
