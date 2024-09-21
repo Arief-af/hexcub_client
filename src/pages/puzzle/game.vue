@@ -3,19 +3,21 @@
     <div
       class="relative w-full overflow-hidden flex justify-center bg-[#FBF5F2] items-center sidebar-bg rounded-[72px] mb-5 h-[452px]"
     >
-      <img
-        v-if="dropzone3.length > 0 && dropzone2.length > 0"
-        class=""
-        :src="dropzone3[0]?.img"
-        alt=""
-      />
-      <img
-        v-else
-        class=""
-        :src="gameInit.game"
-        alt=""
-      />
-      <Button @click="onSubmit" class="px-[60px] rounded-full bg-primary text-white hover:bg-primary hover:text-white  absolute bottom-12 right-20">Kirim</Button>
+      <div>
+        <div class="font-bold text-xl text-center mb-5 uppercase text-primary">{{ gameInit.name }}</div>
+        <img
+          v-if="dropzone3.length > 0 && dropzone2.length > 0"
+          class=""
+          :src="dropzone3[0]?.img"
+          alt=""
+        />
+        <img v-else class="" :src="gameInit.game" alt="" />
+      </div>
+      <Button
+        @click="onSubmit"
+        class="px-[60px] rounded-full bg-primary text-white hover:bg-primary hover:text-white absolute bottom-12 right-20"
+        >Kirim</Button
+      >
     </div>
     <div
       class="w-full py-10 px-10 bg-primary rounded-full border-dashed flex gap-5 items-center justify-center"
@@ -151,24 +153,30 @@ const game = ref([
 
 onMounted(() => {
   const randomGame = Math.floor(Math.random() * game.value.length);
-  
+
   gameInit.value = game.value[randomGame];
   dropzone1.value = game.value[randomGame].options;
-})
+});
 
 const onSubmit = () => {
-    console.log({
-        gameInit: gameInit.value,
-    }, {
-        dropzone2: dropzone2.value,
-    }, {
-        dropzone3: dropzone3.value,
-    });
-    if(dropzone2.value[0].text == gameInit.value.name && dropzone3.value[0].text == gameInit.value.color) {
-        console.log('Kamu menang, YAY!');
-        
+  console.log(
+    {
+      gameInit: gameInit.value,
+    },
+    {
+      dropzone2: dropzone2.value,
+    },
+    {
+      dropzone3: dropzone3.value,
     }
-}
+  );
+  if (
+    dropzone2.value[0].text == gameInit.value.name &&
+    dropzone3.value[0].text == gameInit.value.color
+  ) {
+    console.log("Kamu menang, YAY!");
+  }
+};
 
 const handleDrop = (zone, event) => {
   if (!dragItem.value) return;
