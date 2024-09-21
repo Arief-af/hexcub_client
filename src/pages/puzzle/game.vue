@@ -4,21 +4,21 @@
       class="relative w-full overflow-hidden flex justify-center bg-[#FBF5F2] items-center sidebar-bg rounded-[72px] mb-5 h-[452px]"
     >
       <img
-        v-if="dropzone3.length > 0"
-        class="max-w-[504px] max-h-[107px]"
+        v-if="dropzone3.length > 0 && dropzone2.length > 0"
+        class=""
         :src="dropzone3[0]?.img"
         alt=""
       />
       <img
         v-else
-        class="max-w-[504px] max-h-[107px]"
+        class=""
         :src="gameInit.game"
         alt=""
       />
       <Button @click="onSubmit" class="px-[60px] rounded-full bg-primary text-white hover:bg-primary hover:text-white  absolute bottom-12 right-20">Kirim</Button>
     </div>
     <div
-      class="w-full py-10 bg-primary rounded-full border-dashed flex gap-5 items-center justify-center"
+      class="w-full py-10 px-10 bg-primary rounded-full border-dashed flex gap-5 items-center justify-center"
       @dragover.prevent
       @drop="handleDrop(1, $event)"
     >
@@ -98,6 +98,16 @@ import orangeGreen from "@/assets/images/game-orange-green.png";
 import orangeWhite from "@/assets/images/game-orange-white.png";
 import orangeBlue from "@/assets/images/game-orange-blue.png";
 
+import bananaCorrect from "@/assets/images/game-banana-correct.png";
+import bananaPurple from "@/assets/images/game-banana-purple.png";
+import bananaWhite from "@/assets/images/game-banana-white.png";
+import bananaBlue from "@/assets/images/game-banana-blue.png";
+
+import tomatoCorrect from "@/assets/images/game-tomato-correct.png";
+import tomatoPurple from "@/assets/images/game-tomato-purple.png";
+import tomatoWhite from "@/assets/images/game-tomato-white.png";
+import tomatoYellow from "@/assets/images/game-tomato-yellow.png";
+
 const dropzone1 = ref([]);
 const dropzone2 = ref([]);
 const dropzone3 = ref([]);
@@ -115,11 +125,35 @@ const game = ref([
       { color: "bg-orange-500", text: "orange", img: orangeCorrect },
     ],
   },
+  {
+    game: bananaWhite,
+    name: "banana",
+    color: "yellow",
+    options: [
+      { color: "bg-white", text: "banana", img: bananaCorrect },
+      { color: "bg-blue-500", text: "blue", img: bananaBlue },
+      { color: "bg-purple-500", text: "purple", img: bananaPurple },
+      { color: "bg-yellow-500", text: "yellow", img: bananaCorrect },
+    ],
+  },
+  {
+    game: tomatoWhite,
+    name: "tomato",
+    color: "red",
+    options: [
+      { color: "bg-white", text: "tomato", img: tomatoWhite },
+      { color: "bg-red-500", text: "red", img: tomatoCorrect },
+      { color: "bg-purple-500", text: "purple", img: tomatoPurple },
+      { color: "bg-yellow-500", text: "yellow", img: tomatoYellow },
+    ],
+  },
 ]);
 
 onMounted(() => {
-  gameInit.value = game.value[0];
-  dropzone1.value = game.value[0].options;
+  const randomGame = Math.floor(Math.random() * game.value.length);
+  
+  gameInit.value = game.value[randomGame];
+  dropzone1.value = game.value[randomGame].options;
 })
 
 const onSubmit = () => {
