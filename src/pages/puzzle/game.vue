@@ -1,10 +1,34 @@
 <template>
   <DashboardLayout>
+    <Modal v-model="isModalOpen" title="Confirmation" :primary="win" @confirm="handleConfirm">
+      <section v-if="win" class="flex flex-col items-center text-center">
+        <img src="@/assets/check.svg" alt="check" />
+        <p class="text-center text-xl font-bold text-white mt-5">
+          Jawaban Kamu Benar!
+        </p>
+        <div class="flex mt-5 gap-2">
+          <Button class="bg-primary text-white hover:bg-primary hover:text-white" @click="goTo('/puzzle')">Kembali</Button>
+          <Button @click="restartGame" class="bg-white text-primary hover:bg-white hover:text-primary">Main Lagi</Button>
+        </div>
+      </section>
+      <section v-else class="flex flex-col items-center text-center">
+        <img src="@/assets/wrong.svg" alt="check" />
+        <p class="text-center text-xl font-bold text-white mt-5">
+          Jawaban Kamu Salah!
+        </p>
+        <div class="flex mt-5 gap-2">
+          <Button class="bg-red-500 text-white hover:bg-red-500 hover:text-white" @click="goTo('/puzzle')">Kembali</Button>
+          <Button @click="isModalOpen = false" class="bg-white text-red-500 hover:bg-white hover:text-red-500">Coba Lagi</Button>
+        </div>
+      </section>
+    </Modal>
     <div
       class="relative w-full overflow-hidden flex justify-center bg-[#FBF5F2] items-center sidebar-bg rounded-[72px] mb-5 h-[452px]"
     >
       <div>
-        <div class="font-bold text-xl text-center mb-5 uppercase text-primary">{{ gameInit.name }}</div>
+        <div class="font-bold text-xl text-center mb-5 uppercase text-primary">
+          {{ gameInit.name }}
+        </div>
         <img
           v-if="dropzone3.length > 0 && dropzone2.length > 0"
           class=""
@@ -14,7 +38,7 @@
         <img v-else class="" :src="gameInit.game" alt="" />
       </div>
       <Button
-        @click="onSubmit"
+        @click="openModal"
         class="px-[60px] rounded-full bg-primary text-white hover:bg-primary hover:text-white absolute bottom-12 right-20"
         >Kirim</Button
       >
@@ -110,6 +134,17 @@ import tomatoPurple from "@/assets/images/game-tomato-purple.png";
 import tomatoWhite from "@/assets/images/game-tomato-white.png";
 import tomatoYellow from "@/assets/images/game-tomato-yellow.png";
 
+import Modal from "@/components/modal/index.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const goTo = (path) => {
+  console.log(path);
+  router.push({ path: path });
+}
+
+const win = ref(null);
+
 const dropzone1 = ref([]);
 const dropzone2 = ref([]);
 const dropzone3 = ref([]);
@@ -159,22 +194,13 @@ onMounted(() => {
 });
 
 const onSubmit = () => {
-  console.log(
-    {
-      gameInit: gameInit.value,
-    },
-    {
-      dropzone2: dropzone2.value,
-    },
-    {
-      dropzone3: dropzone3.value,
-    }
-  );
   if (
     dropzone2.value[0].text == gameInit.value.name &&
     dropzone3.value[0].text == gameInit.value.color
   ) {
-    console.log("Kamu menang, YAY!");
+    win.value = true;
+  }else{
+    win.value = false;
   }
 };
 
@@ -214,5 +240,26 @@ const handleDrop = (zone, event) => {
   }
 
   dragItem.value = null;
+};
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  onSubmit();
+  isModalOpen.value = true;
+};
+
+const handleConfirm = () => {
+  console.log("Confirmed!");
+};
+
+const restartGame = () => {
+  const randomGame = Math.floor(Math.random() * game.value.length);
+  gameInit.value = game.value[randomGame];
+  dropzone1.value = gameInit.value.options;
+  dropzone2.value = [];
+  dropzone3.value = [];
+
+  isModalOpen.value = false;
 };
 </script>
