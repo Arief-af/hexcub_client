@@ -74,7 +74,7 @@ const data = ref([
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
-    path: "/puzzle/play",
+    path: "/google_meet",
   },
 ]);
 

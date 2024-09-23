@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/home/index.vue";
 import PuzzlePage from "../pages/puzzle/index.vue";
 import PuzzleGamePage from "../pages/puzzle/game.vue";
+import GoogleMeetPage from "../pages/google_meet/index.vue";
 const routes = [
   {
     path: "/",
@@ -28,6 +29,16 @@ const routes = [
     path: "/puzzle/play",
     name: "game",
     component: PuzzleGamePage,
+    meta: {
+      requiresAuth: true,
+      requirePasien: true,
+      title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/google_meet",
+    name: "google_meet",
+    component: GoogleMeetPage,
     meta: {
       requiresAuth: true,
       requirePasien: true,
