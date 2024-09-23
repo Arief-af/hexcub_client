@@ -1,14 +1,27 @@
 <template>
   <DashboardLayout>
-    <Modal v-model="isModalOpen" title="Confirmation" :primary="win" @confirm="handleConfirm">
+    <Modal
+      v-model="isModalOpen"
+      title="Confirmation"
+      :primary="win"
+      @confirm="handleConfirm"
+    >
       <section v-if="win" class="flex flex-col items-center text-center">
         <img src="@/assets/check.svg" alt="check" />
         <p class="text-center text-xl font-bold text-white mt-5">
           Jawaban Kamu Benar!
         </p>
         <div class="flex mt-5 gap-2">
-          <Button class="bg-primary text-white hover:bg-primary hover:text-white" @click="goTo('/puzzle')">Kembali</Button>
-          <Button @click="restartGame" class="bg-white text-primary hover:bg-white hover:text-primary">Main Lagi</Button>
+          <Button
+            class="bg-primary text-white hover:bg-primary hover:text-white"
+            @click="goTo('/puzzle')"
+            >Kembali</Button
+          >
+          <Button
+            @click="restartGame"
+            class="bg-white text-primary hover:bg-white hover:text-primary"
+            >Main Lagi</Button
+          >
         </div>
       </section>
       <section v-else class="flex flex-col items-center text-center">
@@ -17,8 +30,16 @@
           Jawaban Kamu Salah!
         </p>
         <div class="flex mt-5 gap-2">
-          <Button class="bg-red-500 text-white hover:bg-red-500 hover:text-white" @click="goTo('/puzzle')">Kembali</Button>
-          <Button @click="isModalOpen = false" class="bg-white text-red-500 hover:bg-white hover:text-red-500">Coba Lagi</Button>
+          <Button
+            class="bg-red-500 text-white hover:bg-red-500 hover:text-white"
+            @click="goTo('/puzzle')"
+            >Kembali</Button
+          >
+          <Button
+            @click="isModalOpen = false"
+            class="bg-white text-red-500 hover:bg-white hover:text-red-500"
+            >Coba Lagi</Button
+          >
         </div>
       </section>
     </Modal>
@@ -112,6 +133,16 @@
         </div>
       </div>
     </div>
+
+    <audio ref="audioPop" controls class="hidden">
+      <source src="@/assets/sounds/pop.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio ref="bgmAudio" loop autoplay class="hidden">
+      <source src="@/assets/sounds/bgm.m4a" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
   </DashboardLayout>
 </template>
 
@@ -137,13 +168,22 @@ import tomatoYellow from "@/assets/images/game-tomato-yellow.png";
 import Modal from "@/components/modal/index.vue";
 import { useRouter } from "vue-router";
 
+const audioPop = ref(null);  // Reference for sound effect
+const bgmAudio = ref(null);  // Reference for background music
+
 const router = useRouter();
 const goTo = (path) => {
   console.log(path);
   router.push({ path: path });
-}
+};
 
 const win = ref(null);
+
+const playAudio = (audio) => {
+  if (audio && audio.paused) {
+    audio.play();
+  }
+};
 
 const dropzone1 = ref([]);
 const dropzone2 = ref([]);
@@ -187,6 +227,7 @@ const game = ref([
 ]);
 
 onMounted(() => {
+  playAudio(bgmAudio.value);
   const randomGame = Math.floor(Math.random() * game.value.length);
 
   gameInit.value = game.value[randomGame];
@@ -199,12 +240,13 @@ const onSubmit = () => {
     dropzone3.value[0].text == gameInit.value.color
   ) {
     win.value = true;
-  }else{
+  } else {
     win.value = false;
   }
 };
 
 const handleDrop = (zone, event) => {
+  playAudio(audioPop.value)
   if (!dragItem.value) return;
 
   // Cek apakah dropzone 2 atau 3 sudah penuh
