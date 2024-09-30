@@ -4,6 +4,7 @@ import HomePage from "../pages/home/index.vue";
 import PuzzlePage from "../pages/puzzle/index.vue";
 import PuzzleGamePage from "../pages/puzzle/game.vue";
 import GoogleMeetPage from "../pages/google_meet/index.vue";
+// test
 const routes = [
   {
     path: "/",
