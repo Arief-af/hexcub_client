@@ -5,8 +5,92 @@ import PuzzlePage from "../pages/puzzle/index.vue";
 import PuzzleGamePage from "../pages/puzzle/game.vue";
 import GoogleMeetPage from "../pages/google_meet/index.vue";
 import LandingPage from "../pages/landingPage/index.vue";
+import LoginPage from "../pages/auth/login.vue";
+import VerifPage from "../pages/auth/verif.vue";
+import ForgotPassword from "../pages/auth/forgot-password.vue";
+import ResetPassword from "../pages/auth/reset-password.vue";
+import RegisterPage from "../pages/auth/register.vue";
+import unauthorizedPage from "@/pages/auth/unauthorized.vue";
+import constractionPage from "@/pages/auth/constraction.vue";
 // test
 const routes = [
+  {
+    path: "/unauthorized",
+    name: "/unauthorized",
+    component: unauthorizedPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Unauthorized",
+    },
+  },
+  {
+    path: "/constraction",
+    name: "/constraction",
+    component: constractionPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "constraction",
+    },
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Login",
+    },
+  },
+  {
+    path: "/verify-email",
+    name: "verify-email",
+    component: VerifPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "verif",
+    },
+  },
+  {
+    path: "/forgot-password",
+    name: "forgot password",
+    component: ForgotPassword,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "forgot password",
+    },
+  },
+  {
+    path: "/reset-password",
+    name: "reset password",
+    component: ResetPassword,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "reset password",
+    },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Register",
+    },
+  },
   {
     path: "/app",
     name: "home",
@@ -57,6 +141,7 @@ const routes = [
       title: "ZQDevs - Home",
     },
   },
+  
 ];
 
 const router = createRouter({

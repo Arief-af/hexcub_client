@@ -56,7 +56,7 @@
             <li @click="scrollToId('faq')" class="cursor-pointer">FAQ</li>
             <li @click="scrollToId('contact')" class="cursor-pointer">Contact Us</li>
             <li class="cursor-pointer">
-              <Button class="p-2">Login</Button>
+              <Button @click="$router.push('/login')" class="p-2">Login</Button>
             </li>
           </ul>
         </section>

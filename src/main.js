@@ -6,7 +6,7 @@ import App from './App.vue'
 import 'boxicons'
 const app = createApp(App)
 const pinia = createPinia()
-
+import 'vue-loading-overlay/dist/css/index.css';
 import FormInput from '@/components/form/Input.vue'
 import FormInputFile from '@/components/form/InputFile.vue'
 import FormTextArea from '@/components/form/TextArea.vue'
