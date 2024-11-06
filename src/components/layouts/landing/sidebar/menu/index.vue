@@ -4,7 +4,7 @@
       <li class="cursor-pointer" v-for="(item, index) in data" :key="index">
         <section>
           <div
-            @click="toggleActive(index)"
+            @click="scrollToId(item.path)"
             :class="{ 'bg-white dark:bg-[#1D1D1D]': item.active }"
             class="relative z-20 py-[6px] mb-2 flex gap-2 justify-between items-center px-[14px] rounded-md dark:text-[#828282] dark:hover:bg-[#1D1D1D] hover:bg-gray-200"
           >
@@ -19,7 +19,7 @@
             </section>
           </div>
           <Transition>
-            <div v-if="item.active" class="relative z-10 dark:text-[#828282]">
+            <div v-if="item.active" @click="scrollToId(item.path)" class="relative z-10 dark:text-[#828282]">
               <div
                 v-for="subItem in item.subItem"
                 :key="subItem.name"
@@ -37,34 +37,36 @@
 
 <script setup>
 import { ref } from "vue";
+import { useSidebarStore } from "@/stores/sidebar";
 
+const sidebarStore = useSidebarStore();
+const scrollToId = (id) => {
+  sidebarStore.toggle();
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+}
 // Data array
 const data = ref([
   {
     name: "Halaman Utama",
+    path: 'halaman_utama',
     active: false,
   },
   {
     name: "Program Kita",
-    subItem: [
-      {
-        name: "Tutorial Video Online",
-      },
-      {
-        name: "Google Meet Session",
-      },
-      {
-        name: "Puzzle Game",
-      },
-    ],
+    path: 'program_kita',
     active: false,
   },
   {
     name: "FAQ",
+    path: 'faq',
     active: false,
   },
   {
-    name: "Contact",
+    name: "Contact Us",
+    path: 'contact',
     active: false,
   },
 ]);

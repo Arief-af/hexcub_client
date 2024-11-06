@@ -11,7 +11,7 @@ import FormInput from '@/components/form/Input.vue'
 import FormInputFile from '@/components/form/InputFile.vue'
 import FormTextArea from '@/components/form/TextArea.vue'
 // import FormSelect from '@/components/form/Select.vue'
-
+import 'aos/dist/aos.css'
 app.component('FormInput', FormInput) 
 app.component('TextArea', FormTextArea) 
 // app.component('FormSelect', FormSelect)

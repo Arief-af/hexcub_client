@@ -51,10 +51,10 @@
         </div>
         <section class="lg:flex hidden">
           <ul class="flex gap-10 items-center text-primary font-semibold">
-            <li class="cursor-pointer">Halaman Utama</li>
-            <li class="cursor-pointer">Program Kita</li>
-            <li class="cursor-pointer">FAQ</li>
-            <li class="cursor-pointer">Contact</li>
+            <li @click="scrollToId('halaman_utama')" class="cursor-pointer">Halaman Utama</li>
+            <li @click="scrollToId('program_kita')" class="cursor-pointer">Program Kita</li>
+            <li @click="scrollToId('faq')" class="cursor-pointer">FAQ</li>
+            <li @click="scrollToId('contact')" class="cursor-pointer">Contact Us</li>
             <li class="cursor-pointer">
               <Button class="p-2">Login</Button>
             </li>
@@ -82,6 +82,24 @@ const activeDropdown = ref(null);
 const setActiveDropdown = (index) => {
   activeDropdown.value = index;
 };
+
+const scrollToId = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    const yOffset = -200; // Offset scroll sebesar -200px
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    // Coba scroll dengan document.documentElement untuk kompatibilitas mobile
+    document.documentElement.scrollTo({ top: y, behavior: "smooth" });
+    
+    // Fallback jika scrollTo pada documentElement tidak berhasil
+    if (document.documentElement.scrollTop === 0) {
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }
+};
+
+
 
 const dropdownItems = [
   { label: "Tutorial Video Online", link: "#" },

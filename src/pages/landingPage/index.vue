@@ -1,14 +1,15 @@
 <template>
   <Layout>
     <section class="px-[40px] md:px-[69px]">
-      <Hero />
+      <Hero id="halaman_utama" data-aos="fade-up" data-aos-anchor-placement="center-center" />
       <div
         class="w-full h-full block md:flex gap-20 lg:gap-32 mt-20 justify-center items-stretch"
       >
-        <Card class="w-full md:w-[595px]" />
+        <Card data-aos="zoom-out-right" class="w-full md:w-[595px]" />
         <!-- Ensure width is specified, but allow height to stretch -->
 
         <div
+          data-aos="fade-right"
           class="w-full md:w-max flex p-10 items-center lg:justify-center -mt-10 relative"
         >
           <section>
@@ -30,9 +31,12 @@
         </div>
       </div>
 
-      <Program />
+      <Program id="program_kita" />
 
       <div
+        id="faq"
+        data-aos="fade-up"
+        data-aos-anchor-placement="bottom-bottom"
         class="sidebar-bg flex justify-center items-center p-10 md:p-20 mt-20 dark:bg-[#1E2925] rounded-2xl overflow-hidden bg-[#FBF5F2]"
       >
         <section class="w-full">
@@ -76,7 +80,12 @@
         </section>
       </div>
 
-      <div class="my-20 bg-primary rounded-lg p-10 md:p-20 text-white">
+      <div
+        id="contact"
+        data-aos="fade-up"
+        data-aos-anchor-placement="bottom-bottom"
+        class="my-20 bg-primary rounded-lg p-10 md:p-20 text-white"
+      >
         <h4 class="text-[22px] font-bold">Hubungi kami</h4>
         <form>
           <div class="block md:flex gap-5">
@@ -110,6 +119,9 @@
 </template>
 
 <script setup>
+import Aos from "aos";
+
+Aos.init();
 import Layout from "@/layouts/default/index.vue";
 import Hero from "@/components/hero/index.vue";
 import Card from "@/components/card/index.vue";
