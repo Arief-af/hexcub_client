@@ -29,7 +29,7 @@
               alt="icon"
             />
           </div>
-          <Logo />
+          <Logo class="md:block hidden" />
         </section>
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -49,14 +49,25 @@
             <DropdownMenuItem>Signout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <section class="sm:block hidden">
+        <section class="sm:flex gap-2 hidden ">
           <Button
             @click="toggleDarkMode"
-            class="dark:bg-[#1D1D1D] bg-primary hover:bg-primary hover:dark:bg-[#353535] text-white"
+            class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
           >
-            <span class="dark:text-white">{{
-              useDarkModeStore().darkMode ? "Light Mode ☀" : "Dark Mode 🌙"
-            }}</span>
+            <box-icon class="fill-white dark:fill-[#1D1D1D]" name='palette'></box-icon>
+          </Button>
+
+          <Button
+            class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
+          >
+            <box-icon class="fill-white dark:fill-[#1D1D1D]" name='bell' ></box-icon>
+          </Button>
+
+          <Button
+            @click="toggleDarkMode"
+            class="dark:bg-primary px-10 bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
+          >
+            <span class="">Logout</span>
           </Button>
         </section>
       </header>
