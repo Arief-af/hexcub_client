@@ -1,14 +1,14 @@
 <template>
   <section class="w-screen h-screen dark:bg-[#262626] bg-[#FFF] flex">
     <section
-      class="z-20 sm:w-[93px] bg-primary flex items-center px-[30px] pt-[29px] h-full md:relative fixed left-0"
+      class="z-20 hidden w-[93px] bg-primary md:flex items-center px-[30px] pt-[29px] h-full md:relative fixed left-0"
     >
       tes
     </section>
     <Transition name="side">
       <section
         v-if="useSidebarStore().sidebar"
-        class="z-10 ml-[93px] md:ml-0 sm:w-[457px] w-full dark:bg-[#1E2925] sidebar-bg bg-[#FBF5F2] px-[30px] pt-[29px] h-full md:relative fixed left-0"
+        class="z-10  ml-0 sm:w-[457px] w-full dark:bg-[#1E2925] sidebar-bg bg-[#FBF5F2] px-[30px] pt-[29px] h-full md:relative fixed left-0"
       >
         <DashboardHeader />
 
@@ -16,7 +16,7 @@
         <DashboardMenu />
       </section>
     </Transition>
-    <main :class="useSidebarStore().sidebar ? '' : 'ml-[93px] md:ml-0'" class="px-4 md:px-[62px] w-screen h-full overflow-auto">
+    <main :class="useSidebarStore().sidebar ? 'md:block hidden' : 'md:ml-[93px] ml-0'" class="px-4 md:px-[62px] w-full md:w-[calc(100%-93px)] h-full overflow-auto">
       <header class="flex gap-4 justify-between items-center h-[114px]">
         <section class="flex gap-5 w-full items-center">
           <div

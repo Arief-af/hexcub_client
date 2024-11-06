@@ -1,6 +1,6 @@
 <template>
     <button
-      :class="[outline ? outlineVariant : baseVariant, hover ? 'hover:bg-[#0C3E7C] hover:text-white' : '']"
+      :class="[outline ? outlineVariant : baseVariant, hover ? 'hover:bg-primary hover:text-white' : '']"
       class="px-[50px] rounded-lg"
     >
       <slot />

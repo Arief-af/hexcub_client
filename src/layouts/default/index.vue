@@ -10,7 +10,7 @@
       <section class="lg:hidden" v-if="useSidebarStore().sidebar">
         <div class="fixed top-0 right-0 h-full z-50">
           <div
-            class="w-[300px] h-full bg-[#F3F6F8] text-primary font-bold p-5 absolute top-0 right-0 z-50"
+            class="w-[300px] h-full dark:bg-[#1D1D1D] bg-[#F3F6F8] text-primary font-bold p-5 absolute top-0 right-0 z-50"
           >
             <header class="flex justify-between items-center">
               <img class="h-[40px]" src="@/assets/images/logo.png" alt="logo" />
@@ -51,22 +51,11 @@
         </div>
         <section class="lg:flex hidden">
           <ul class="flex gap-10 items-center text-primary font-semibold">
-            <li>Halaman Utama</li>
-            <li>Program Kita</li>
-            <li>
-              <section class="flex gap-4">
-                <Dropdown
-                  :title="'Program'"
-                  :items="dropdownItems"
-                  :dropdownIndex="index"
-                  :activeDropdown="activeDropdown"
-                  :setActiveDropdown="setActiveDropdown"
-                />
-              </section>
-            </li>
-            <li>FAQ</li>
-            <li>Contact</li>
-            <li>
+            <li class="cursor-pointer">Halaman Utama</li>
+            <li class="cursor-pointer">Program Kita</li>
+            <li class="cursor-pointer">FAQ</li>
+            <li class="cursor-pointer">Contact</li>
+            <li class="cursor-pointer">
               <Button class="p-2">Login</Button>
             </li>
           </ul>
@@ -76,7 +65,7 @@
     <main class="mt-[90px]">
       <slot />
     </main>
-    <footer class="mt-20 h-full-[40px] bottom-0 absolute w-full md:px-[69px] py-[69px] bg-primary">
+    <footer class="mt-20 h-full-[40px] bottom-0  w-full md:px-[69px] py-[69px] bg-primary">
      
     </footer>
   </div>

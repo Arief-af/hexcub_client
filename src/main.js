@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 import './assets/css/app.css'
 import router from './router'
 import App from './App.vue'
-
+import 'boxicons'
 const app = createApp(App)
 const pinia = createPinia()
 

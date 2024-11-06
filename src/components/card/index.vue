@@ -1,33 +1,52 @@
 <template>
-  <div
-    class="w-full p-[51px] max-h-[280px] h-full dark:bg-[#101010] bg-primary text-white rounded-lg flex flex-col justify-between"
-  >
-    <div>
-      <h1 class="text-[20px] sm:text-[24px]">{{ title }}</h1>
-      <h1 class="text-[14px] sm:text-[16px] font-light">{{ desc }}</h1>
-    </div>
-    <div class="flex justify-end pt-[80px]">
-      <Button
-        @click="goTo(page)"
-        class="bg-white dark:bg-[#1D1D1D] dark:hover:bg-[#353535] dark:text-white w-[90px] sm:w-[111px] hover:bg-gray-100 text-[#0C3E6C]"
-        >Detail</Button
-      >
+  <div class="relative p-4">
+    <!-- Green shadow layer -->
+    <div
+      class="absolute inset-0 transform translate-x-10 -scale-75 md:scale-100 -translate-y-10 bg-primary rounded-lg"
+    ></div>
+
+    <!-- Main content layer -->
+    <div
+      class="relative bg-[#FBF5F2] rounded-lg p-5 md:p-10 flex items-center justify-center"
+    >
+      <!-- Image or content goes here -->
+      <section>
+        <img class="w-full" :src="image ? image : defaultImage" alt="Classroom" />
+        <section v-if="content" class="mt-5">
+          <h4 class="font-bold text-center text-xl">{{ title }}</h4>
+          <div v-if="!detail && content" class="flex justify-center mt-3">
+            <Button @click="detail = !detail" class="p-2 bg-primary text-dark hover:bg-primary">Lihat Semua</Button>
+          </div>
+          <p class="my-5" v-if="detail">
+            {{ desc }}
+          </p>
+          <div v-if="detail && content" class="flex justify-center my-3">
+            <Button @click="detail = !detail" class="p-2 bg-primary text-dark hover:bg-primary">Tutup</Button>
+          </div>
+        </section>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup>
-import { Button } from "@/components/ui/button";
-import { useRouter } from "vue-router";
-const router = useRouter();
-const goTo = (path) => {
-    console.log(path);
-    
-  router.push({ path: path });
-}
+import Button from "@/components/button/index.vue";
+import { ref } from "vue";
+import defaultImage from "@/assets/images/hero1.png";
+let detail = ref(false);
 const props = defineProps({
-  title: { type: String, required: true },
-  desc: { type: String, required: true },
-  page: { type: String, required: true },
-});
+  content: {
+    type: Boolean,
+    default: false,
+  },
+  desc : {
+    type: String,
+  },
+  title: {
+    type: String,
+  },
+  image : {
+    type: String,
+  },
+})
 </script>
