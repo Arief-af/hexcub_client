@@ -1,6 +1,8 @@
 <template>
   <AuthLayout>
-    <section class="md:w-[70%] p-10 md:p-0">
+    <section class="md:w-[70%] w-full h-screen flex flex-col justify-center p-10 relative md:p-0">
+      <div @click="$router.push('/')" class="absolute right-0 p-10 md:p-0 top-10 text-primary cursor-pointer">< Halaman Utama</div>
+
       <img src="@/assets/images/logo.png" alt="logo" class="w-1/3" />
       <div class="text-2xl text-start mt-5 mb-5 font-semibold text-primary">
         Forgot Password

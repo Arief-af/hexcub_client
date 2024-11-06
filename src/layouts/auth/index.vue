@@ -5,7 +5,7 @@
       >
         <img src="@/assets/images/authHero.png" alt="authhero" />
       </div>
-      <div class="bg-[#ffffff] h-full w-full flex items-center justify-center">
+      <div class="bg-[#ffffff] h-screen w-full flex items-center justify-center">
           <slot />    
       </div>
     </section>
