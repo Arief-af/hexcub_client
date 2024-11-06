@@ -65,8 +65,8 @@
     <main class="mt-[90px]">
       <slot />
     </main>
-    <footer class="mt-20 h-full-[40px] bottom-0  w-full md:px-[69px] py-[69px] bg-primary">
-     
+    <footer class="mt-20 h-full-[40px] bottom-0 text-center w-full md:px-[28px] py-[28px] dark:bg-[#1E2925] dark:text-white bg-[#FBF5F2]">
+      ©2024 Codeisfun. All rights reserved. 
     </footer>
   </div>
 </template>

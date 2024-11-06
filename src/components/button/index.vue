@@ -1,7 +1,7 @@
 <template>
     <button
       :class="[outline ? outlineVariant : baseVariant, hover ? 'hover:bg-primary hover:text-white' : '']"
-      class="px-[50px] rounded-lg"
+      class="px-[50px]"
     >
       <slot />
     </button>
@@ -21,8 +21,8 @@
     }
   });
   
-  const baseVariant = ref('bg-primary transition-all text-white');
-  const outlineVariant = ref('border text-primary transition-all border-[#0C3E7C] bg-[#F3F6F8]');
+  const baseVariant = ref('bg-primary transition-all text-white rounded-lg');
+  const outlineVariant = ref('text-primary dark:bg-[#1D1D1D] transition-all bg-white rounded-full');
   
   </script>
   
