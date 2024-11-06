@@ -11,6 +11,7 @@ import ForgotPassword from "../pages/auth/forgot-password.vue";
 import ResetPassword from "../pages/auth/reset-password.vue";
 import RegisterPage from "../pages/auth/register.vue";
 import unauthorizedPage from "@/pages/auth/unauthorized.vue";
+import coursePage from "@/pages/courses/index.vue";
 import constractionPage from "@/pages/auth/constraction.vue";
 // test
 const routes = [
@@ -23,6 +24,17 @@ const routes = [
       requiredAdmin: false,
       requiredMentor: false,
       title: "Unauthorized",
+    },
+  },
+  {
+    path: "/courses",
+    name: "/courses",
+    component: coursePage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Courses",
     },
   },
   {
