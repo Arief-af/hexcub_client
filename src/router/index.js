@@ -13,8 +13,20 @@ import RegisterPage from "../pages/auth/register.vue";
 import unauthorizedPage from "@/pages/auth/unauthorized.vue";
 import coursePage from "@/pages/courses/index.vue";
 import constractionPage from "@/pages/auth/constraction.vue";
+import Profile from "@/pages/profile/index.vue";
 // test
 const routes = [
+  {
+     path: '/profile',
+     name: 'profile',
+     component: Profile,
+     meta: {
+       requiredAuth: false,
+       requiredAdmin: false,
+       requiredMentor: false,
+       title: "Profile",
+     },
+  },
   {
     path: "/unauthorized",
     name: "/unauthorized",

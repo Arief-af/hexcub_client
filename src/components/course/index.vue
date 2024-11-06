@@ -2,7 +2,7 @@
   <div
     class="p-[19px] border border-primary flex justify-between rounded-xl w-full"
   >
-    <h6 class="text-white">{{ title }}</h6>
+    <h6 class="dark:text-white">{{ title }}</h6>
     <h6 class="text-primary">{{ duration }} Menit</h6>
   </div>
 </template>
