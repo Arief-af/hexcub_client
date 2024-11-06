@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <section class="px-[40px] md:px-[69px]">
-      <Hero id="halaman_utama" data-aos="fade-up" data-aos-anchor-placement="center-center" />
+      <Hero id="halaman_utama" data-aos-offset="-200" data-aos="fade-up" data-aos-anchor-placement="center-center" />
       <div
         class="w-full h-full block md:flex gap-20 lg:gap-32 mt-20 justify-center items-stretch"
       >
@@ -81,6 +81,7 @@
       </div>
 
       <div
+        data-aos-offset="-300"
         id="contact"
         data-aos="fade-up"
         data-aos-anchor-placement="bottom-bottom"
