@@ -4,12 +4,23 @@ import HomePage from "../pages/home/index.vue";
 import PuzzlePage from "../pages/puzzle/index.vue";
 import PuzzleGamePage from "../pages/puzzle/game.vue";
 import GoogleMeetPage from "../pages/google_meet/index.vue";
+import LandingPage from "../pages/landingPage/index.vue";
 // test
 const routes = [
   {
-    path: "/",
+    path: "/app",
     name: "home",
     component: HomePage,
+    meta: {
+      requiresAuth: true,
+      requirePasien: true,
+      title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/",
+    name: "landingPage",
+    component: LandingPage,
     meta: {
       requiresAuth: true,
       requirePasien: true,
