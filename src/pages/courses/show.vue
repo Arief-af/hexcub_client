@@ -16,11 +16,19 @@
             ></video>
           </div>
         </div>
+
         <div
           class="w-[calc(30%-10px)] p-10 bg-[#FBF5F2] rounded-3xl overflow-hidden"
         >
-          <!-- <div>Current Progress: {{ progressMinutes }} minutes</div> -->
-          <!-- <Button outline :hover="false" class="p-2" @click="saveProgress">Simpan Progress</Button> -->
+          <h4 class="text-xl font-bold text-primary mb-4">Detail Video</h4>
+          <div
+            :key="index"
+            @click="playVideoAtMinute(item.time)"
+            class="bg-primary mb-2 p-2 rounded-xl text-white"
+            v-for="(item, index) in data.video_details"
+          >
+            {{ item.title }}
+          </div>
         </div>
       </div>
       <section>
@@ -28,7 +36,9 @@
           class="bg-primary mt-5 rounded-full py-5 flex justify-between items-center px-10"
         >
           <h4 class="text-xl font-bold text-white">{{ data.title }}</h4>
-          <Button @click="saveProgress" outline :hover="false" class="p-2">Simpan Progress</Button>
+          <Button @click="saveProgress" outline :hover="false" class="p-2"
+            >Simpan Progress</Button
+          >
         </div>
       </section>
     </section>
@@ -76,8 +86,26 @@ const handleTimeUpdate = () => {
     progressMinutes.value = currentTimeInMinutes;
   }
 };
+const playVideoAtMinute = (time) => {
+  if (videoElement.value) {
+    const timeInSeconds = time * 60; // Convert minutes to seconds
+    console.log("Requested time in seconds:", timeInSeconds);
 
-// Function to save progress
+    // Pause the video, set currentTime, and then play
+    videoElement.value.pause(); // Pause if the video is playing
+    videoElement.value.currentTime = timeInSeconds; // Set currentTime to requested value
+
+    // Listen for the seeked event to ensure currentTime has been set before playing
+    videoElement.value.addEventListener('seeked', () => {
+      console.log(`Video seeked to: ${videoElement.value.currentTime}`);
+      videoElement.value.play().catch((error) => {
+        console.error("Error playing video:", error);
+      });
+    });
+  } else {
+    console.error("Video element not found");
+  }
+};// Function to save progress
 const saveProgress = async () => {
   const loader = $loading.show({});
   try {

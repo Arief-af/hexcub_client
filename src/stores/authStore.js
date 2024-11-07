@@ -103,7 +103,7 @@ export const useAuthStore = defineStore({
       this.user = {};
       this.isLoggedIn = false;
       this.$reset();
-      router.push("/");
+      router.push("/login");
     },
     async requestEmailVerify() {
       try {
