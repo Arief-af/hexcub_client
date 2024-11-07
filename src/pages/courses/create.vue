@@ -54,6 +54,37 @@
             </FormInputFile>
           </div>
         </div>
+        <h5 class="text-lg font-semibold text-primary">Time Stamps <Button type="button" @click="addTimeStamp" class="ml-5 p-2">Add time stamp</Button></h5>
+        <section class="border border-primary p-5 rounded-2xl mt-16 relative" v-for="(item, index) in formData.timeStamps" :key="index">
+          <div class="absolute right-5 -top-8">
+            <Button type="button" @click="deleteTimeStamp(index)" class="py-3">Delete</Button>
+          </div>
+          <div class="w-full">
+            <FormInput
+              v-model="formData.timeStamps[index].title"
+              :marginBottom="true"
+              placeholder="Title"
+              class="w-full mt-2"
+            >
+              <template #label>
+                <span class="text-primary">Title*</span>
+              </template>
+            </FormInput>
+          </div>
+          <div class="w-full">
+            <FormInput
+              v-model="formData.timeStamps[index].time"
+              :marginBottom="true"
+              type="number"
+              placeholder="Duration (min)"
+              class="w-full mt-2"
+            >
+              <template #label>
+                <span class="text-primary">Duration (min)*</span>
+              </template>
+            </FormInput>
+          </div>
+        </section>
         <div class="flex justify-end">
           <Button type="submit" class="w-max py-3 mt-5">Buat Materi</Button>
         </div>
@@ -71,11 +102,21 @@ import { useLoading } from "vue-loading-overlay";
 import { useNotificationStore } from "../../stores/notification";
 import { useVideoStore } from "../../stores/videoStore";
 
-let formData = ref({ file: null });
+let formData = ref({ file: null, duration: 0, timeStamps: []});
 const videoURL = ref(null); // Store video preview URL
 const totalDuration = ref(null); // Store total video duration
 const router = useRouter();
 
+const addTimeStamp = () => {
+  formData.value.timeStamps.push({
+    title: "",
+    time: "",
+  });
+}
+
+const deleteTimeStamp = (index) => {
+  formData.value.timeStamps.splice(index, 1);
+}
 // Function to handle video file selection
 const onFileSelected = (file) => {
   formData.value.file = file;
@@ -111,6 +152,12 @@ const onSubmit = async () => {
     }
     if (formData.value.duration) {
       dataForm.append("duration", formData.value.duration);
+    }
+    if (formData.value.timeStamps.length > 0) {
+      for (let i = 0; i < formData.value.timeStamps.length; i++) {
+        dataForm.append(`timeStamps[${i}][title]`, formData.value.timeStamps[i].title);
+        dataForm.append(`timeStamps[${i}][time]`, formData.value.timeStamps[i].time);
+      }
     }
     const resp = await videoStore.post(dataForm);
     errors.value = {};
