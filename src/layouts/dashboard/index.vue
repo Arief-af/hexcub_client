@@ -111,11 +111,14 @@
       <div class="h-[85%] w-full overflow-auto">
         <slot />
       </div>
+      <ChatBot />
     </main>
   </section>
 </template>
 
 <script setup>
+import ChatBot from "@/components/chatbot/index.vue";
+
 import DashboardHeader from "@/components/layouts/dashboard/sidebar/header/index.vue";
 import DashboardMenu from "@/components/layouts/dashboard/sidebar/menu/index.vue";
 import { Button } from "@/components/ui/button";

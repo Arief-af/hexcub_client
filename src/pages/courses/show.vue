@@ -10,9 +10,11 @@
             <video
               :src="getFullUrl(data.file)"
               controls
+              data-setup="{}"
               class="w-full rounded-lg"
               ref="videoElement"
               @timeupdate="handleTimeUpdate"
+              @loadedmetadata="onMetadataLoaded"
             ></video>
           </div>
         </div>
@@ -23,7 +25,7 @@
           <h4 class="text-xl font-bold text-primary mb-4">Detail Video</h4>
           <div
             :key="index"
-            @click="playVideoAtMinute(item.time)"
+            @click="playVideoAtMinute"
             class="bg-primary mb-2 p-2 rounded-xl text-white"
             v-for="(item, index) in data.video_details"
           >
@@ -36,9 +38,9 @@
           class="bg-primary mt-5 rounded-full py-5 flex justify-between items-center px-10"
         >
           <h4 class="text-xl font-bold text-white">{{ data.title }}</h4>
-          <Button @click="saveProgress" outline :hover="false" class="p-2"
-            >Simpan Progress</Button
-          >
+          <Button @click="saveProgress" outline :hover="false" class="p-2">
+            Simpan Progress
+          </Button>
         </div>
       </section>
     </section>
@@ -86,26 +88,46 @@ const handleTimeUpdate = () => {
     progressMinutes.value = currentTimeInMinutes;
   }
 };
-const playVideoAtMinute = (time) => {
+
+const onMetadataLoaded = () => {
+  console.log("Video metadata loaded");
+};
+
+// Function to play video at a specific time (hardcoded to 9 seconds)
+const playVideoAtMinute = () => {
   if (videoElement.value) {
-    const timeInSeconds = time * 60; // Convert minutes to seconds
-    console.log("Requested time in seconds:", timeInSeconds);
+    // Ensure the video element is ready
+    if (videoElement.value.readyState >= 1) {
+      // If the video is already loaded (at least metadata), play it from 9 seconds
+      const timeInSeconds = 9; // Hardcoded to 9 seconds
+      console.log("Requested time in seconds:", timeInSeconds);
 
-    // Pause the video, set currentTime, and then play
-    videoElement.value.pause(); // Pause if the video is playing
-    videoElement.value.currentTime = timeInSeconds; // Set currentTime to requested value
-
-    // Listen for the seeked event to ensure currentTime has been set before playing
-    videoElement.value.addEventListener('seeked', () => {
-      console.log(`Video seeked to: ${videoElement.value.currentTime}`);
+      videoElement.value.pause(); // Pause the video if it's playing
+      videoElement.value.currentTime = timeInSeconds; // Set currentTime to 9 seconds
+      console.log("Video duration:", videoElement.value.currentTime);
       videoElement.value.play().catch((error) => {
         console.error("Error playing video:", error);
       });
-    });
+    } else {
+      // If the metadata isn't loaded yet, add an event listener
+      videoElement.value.addEventListener("loadedmetadata", () => {
+        const timeInSeconds = 9; // Hardcoded to 9 seconds
+        console.log("Requested time in seconds:", timeInSeconds);
+
+        videoElement.value.pause(); // Pause the video if it's playing
+        videoElement.value.currentTime = timeInSeconds; // Set currentTime to 9 seconds
+        
+        videoElement.value.play().catch((error) => {
+          console.error("Error playing video:", error);
+        });
+      });
+    }
   } else {
     console.error("Video element not found");
   }
-};// Function to save progress
+};
+
+// Function to save progress
 const saveProgress = async () => {
   const loader = $loading.show({});
   try {
