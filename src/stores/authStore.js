@@ -8,7 +8,6 @@ export const useAuthStore = defineStore({
     user: {},
     isLoggedIn: false,
     token: null,
-    administrasi: null
   }),
   actions: {
     async register(data){
@@ -26,23 +25,7 @@ export const useAuthStore = defineStore({
         this.token = resp.data.data.token;
         axios.defaults.headers.common["Authorization"] = "Bearer " + this.token;
         await this.me();
-        await this.checkAdministrasiVerify();
         // await this.me();
-        return resp;
-      } catch (error) {
-        throw error;
-      }
-    },
-
-    async checkAdministrasiVerify () {
-      try {
-        const resp = await axios.get("/api/administrasi/verify");
-        if (resp.data.data === null) {
-          this.administrasi = null
-        }else{
-          this.administrasi = resp.data.data
-        }
-        
         return resp;
       } catch (error) {
         throw error;

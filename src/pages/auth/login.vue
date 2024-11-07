@@ -68,17 +68,17 @@ const onSubmit = async () => {
   try {
     const resp = await authStore.login(formData.value);
     notificationStore.showNotification(resp?.data?.message, "success");
-    const role = authStore.user.role?.position.toLowerCase();
-    if (role === "admin" || role === "mentor") {
-      router.push("/admin/learning_camp");
+    const role = authStore.user.role?.toLowerCase();
+    if (role === "admin") {
+      router.push("/courses/create");
     }else{
-      router.push("/peserta/profile");
+      router.push("/courses");
     }
   } catch (error) {
     // Handle case where error or error.response.data might be null/undefined
     const errorData = error?.response?.data;
     errors.value = errorData?.data || {};
-    notificationStore.showNotification(errorData?.message || "An error occurred", "error");
+    notificationStore.showNotification(errorData?.message || "Password atau email salah", "error");
   } finally {
     loader?.hide?.(); // Ensure loader is not null before calling hide
   }

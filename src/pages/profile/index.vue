@@ -89,17 +89,12 @@
 import { useAuthStore } from "@/stores/authStore";
 import DefaultLayout from "@/layouts/dashboard/index.vue";
 import Button from "@/components/button/index.vue";
-import { Label } from "@/components/ui/label";
 import { ref } from "vue";
 import ProfileDefault from "@/assets/images/profileDefault.png";
 const authStore = useAuthStore();
 
-const wawancara = ref({});
 const formData = ref({});
 formData.value = authStore.user;
-console.log(formData.value);
-const isDaftar = ref(authStore.administrasi);
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 // Function to select image and preview it
 const selectImage = (e: Event) => {
   const file = (e.target as HTMLInputElement).files?.[0];
@@ -162,18 +157,4 @@ const getBackendFullURL = (img) => {
   return import.meta.env.VITE_BASE_URL + "storage/" + img;
 };
 
-const checkAdministrasiVerify = async () => {
-  const loading = $loading.show();
-  try {
-    const response = await authStore.checkAdministrasiVerify();
-  } catch (error) {
-    notificationStore.showNotification(error?.response?.data?.message, "error");
-  } finally {
-    loading.hide();
-  }
-};
-
-onMounted(async () => {
-  await checkAdministrasiVerify();
-});
 </script>

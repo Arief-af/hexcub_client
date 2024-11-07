@@ -9,7 +9,7 @@
         :style="{ width: computedWidth }"
         class="absolute left-2 h-[80%] top-1/2 -translate-y-1/2 flex items-center justify-center bg-primary rounded-full"
       >
-        <span class="text-sm text-white">{{ persentage }}%</span>
+        <span :class="persentage < 1 ? 'text-black ml-10' : 'text-white'" class="text-sm ">{{ persentage }}%</span>
       </div>
     </div>
   </div>

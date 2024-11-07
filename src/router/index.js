@@ -12,20 +12,58 @@ import ResetPassword from "../pages/auth/reset-password.vue";
 import RegisterPage from "../pages/auth/register.vue";
 import unauthorizedPage from "@/pages/auth/unauthorized.vue";
 import coursePage from "@/pages/courses/index.vue";
+import courseShowPage from "@/pages/courses/show.vue";
+import courseEditPage from "@/pages/courses/edit.vue";
+import courseAdminPage from "@/pages/courses/indexAdmin.vue";
 import constractionPage from "@/pages/auth/constraction.vue";
 import Profile from "@/pages/profile/index.vue";
-// test
+// admin
+
+import MateriPage from "@/pages/courses/create.vue";
 const routes = [
   {
-     path: '/profile',
-     name: 'profile',
-     component: Profile,
-     meta: {
-       requiredAuth: false,
-       requiredAdmin: false,
-       requiredMentor: false,
-       title: "Profile",
-     },
+    path: "/courses/create",
+    name: "coursesCreate",
+    component: MateriPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Buat Materi",
+    },
+  },
+  {
+    path: "/courses/:id",
+    name: "coursesShow",
+    component: courseShowPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Materi",
+    },
+  },
+  {
+    path: "/courses/:id/edit",
+    name: "coursesEdit",
+    component: courseEditPage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Edit Materi",
+    },
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Profile",
+    },
   },
   {
     path: "/unauthorized",
@@ -42,6 +80,17 @@ const routes = [
     path: "/courses",
     name: "/courses",
     component: coursePage,
+    meta: {
+      requiredAuth: false,
+      requiredAdmin: false,
+      requiredMentor: false,
+      title: "Courses",
+    },
+  },
+  {
+    path: "/courses/admin",
+    name: "/courses/admin",
+    component: courseAdminPage,
     meta: {
       requiredAuth: false,
       requiredAdmin: false,
@@ -165,7 +214,6 @@ const routes = [
       title: "ZQDevs - Home",
     },
   },
-  
 ];
 
 const router = createRouter({
