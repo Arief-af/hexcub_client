@@ -22,7 +22,7 @@
   });
   
   const baseVariant = ref('bg-primary transition-all dark:text-[#1D1D1D] text-white rounded-lg');
-  const outlineVariant = ref('text-primary dark:bg-[#1D1D1D] dark:text-[#1D1D1D] transition-all bg-white rounded-full');
+  const outlineVariant = ref('text-primary dark:bg-[#1D1D1D]  transition-all bg-white rounded-full');
   
   </script>
   
