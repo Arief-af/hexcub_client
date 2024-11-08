@@ -57,7 +57,7 @@
             </FormInputFile>
           </div>
         </div>
-        <h5 class="text-lg font-semibold text-primary">
+        <!-- <h5 class="text-lg font-semibold text-primary">
           Time Stamps
           <Button type="button" @click="addTimeStamp" class="ml-5 p-2"
             >Add time stamp</Button
@@ -111,7 +111,7 @@
               </template>
             </FormInput>
           </div>
-        </section>
+        </section> -->
         <div class="flex justify-end">
           <Button type="submit" class="w-max py-3 mt-5">Update Materi</Button>
         </div>

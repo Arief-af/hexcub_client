@@ -4,7 +4,8 @@
       <h4 class="text-xl font-bold text-primary">Perkembangan Belajar Kamu!</h4>
       <div class="flex gap-5 mt-5 flex-wrap">
         <Progress
-          class="md:w-[calc(50%-20px)] w-full"
+          @click="$router.push(`/courses/${item.video_id}`)"
+          class="md:w-[calc(50%-20px)] w-full cursor-pointer"
           v-for="item in dataProgress"
           :title="item.video.title"
           :persentage="calculatePercentage(item.video.duration, item.status)"

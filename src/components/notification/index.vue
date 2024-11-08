@@ -24,12 +24,12 @@
       variant: {
         success: 'bg-green-500',
         error: 'bg-red-500',
-        warning: 'bg-yellow-500',
+        warning: 'bg-yellow-400 text-gray-800',
         info: 'bg-blue-500'
       }
     },
     defaultVariants: {
-      variant: 'info'
+      variant: 'warning'
     }
   });
   

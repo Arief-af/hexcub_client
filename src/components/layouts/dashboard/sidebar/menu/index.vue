@@ -47,9 +47,9 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "../../../../../stores/authStore";
 const route = useRouter().currentRoute.value.fullPath;
 const isAdmin = ref(useAuthStore().user.role === "admin");
-console.log(isAdmin.value);
+// console.log(isAdmin.value);
 
-console.log(route);
+// console.log(route);
 
 // Data array
 const data = ref([
@@ -113,7 +113,7 @@ const toggleActive = (index) => {
 };
 
 const filteredSubItems = (subItems) => {
-  console.log(subItems);
+  // console.log(subItems);
   
   return subItems.filter((subItem) => {
     if (isAdmin.value) return subItem.is_admin;

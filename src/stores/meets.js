@@ -10,5 +10,13 @@ export const useMeetStore = defineStore('meet', {
          throw error
        }
     },
+    async post(data) {
+       try {
+           const resp = await axios.post('/api/meets', data);
+           return resp
+       } catch (error) {
+         throw error
+       }
+    },
   },
 })

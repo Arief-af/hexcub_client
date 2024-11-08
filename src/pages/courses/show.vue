@@ -10,11 +10,9 @@
             <video
               :src="getFullUrl(data.file)"
               controls
-              data-setup="{}"
               class="w-full rounded-lg"
               ref="videoElement"
               @timeupdate="handleTimeUpdate"
-              @loadedmetadata="onMetadataLoaded"
             ></video>
           </div>
         </div>
@@ -22,12 +20,13 @@
         <div
           class="w-[calc(30%-10px)] p-10 bg-[#FBF5F2] rounded-3xl overflow-hidden"
         >
-          <h4 class="text-xl font-bold text-primary mb-4">Detail Video</h4>
+          <h4 class="text-xl font-bold text-primary mb-4">Video Lainnya</h4>
           <div
             :key="index"
-            @click="playVideoAtMinute"
-            class="bg-primary mb-2 p-2 rounded-xl text-white"
-            v-for="(item, index) in data.video_details"
+            @click="refreshPage(item.id)"
+            :class="item.id == $route.params.id ? 'bg-primary text-white' : 'border border-primary text-primary' " 
+            class="mb-2 p-2 rounded-xl cursor-pointer"
+            v-for="(item, index) in dataVideo"
           >
             {{ item.title }}
           </div>
@@ -54,6 +53,7 @@ import { computed, onMounted, ref } from "vue";
 import { useLoading } from "vue-loading-overlay";
 import { useVideoStore } from "../../stores/videoStore";
 import { useRouter } from "vue-router";
+import { useNotificationStore } from "../../stores/notification";
 
 const $loading = useLoading({});
 const videoStore = useVideoStore();
@@ -74,7 +74,30 @@ const fetchData = async () => {
     const resp = await videoStore.show(id);
     data.value = resp.data.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+  } finally {
+    loader.hide();
+  }
+};
+
+let dataVideo = ref([]);
+let paginationVideo = ref([]);
+const fetchDataVideo = async (page = 1) => {
+  const loader = $loading.show({});
+  try {
+    const resp = await videoStore.getData(page);
+    // console.log(resp.data.data);
+    paginationVideo.value = resp.data.data;
+    dataVideo.value = resp.data.data.data.map((item) => ({
+      id: item.id,
+      file: getFullUrl(item.file),
+      title: item.title,
+      duration: item.duration,
+      created_at: item.created_at,
+      updated_at: item.updated_at,
+    }));
+  } catch (error) {
+    // console.log(error);
   } finally {
     loader.hide();
   }
@@ -89,63 +112,32 @@ const handleTimeUpdate = () => {
   }
 };
 
-const onMetadataLoaded = () => {
-  console.log("Video metadata loaded");
-};
-
-// Function to play video at a specific time (hardcoded to 9 seconds)
-const playVideoAtMinute = () => {
-  if (videoElement.value) {
-    // Ensure the video element is ready
-    if (videoElement.value.readyState >= 1) {
-      // If the video is already loaded (at least metadata), play it from 9 seconds
-      const timeInSeconds = 9; // Hardcoded to 9 seconds
-      console.log("Requested time in seconds:", timeInSeconds);
-
-      videoElement.value.pause(); // Pause the video if it's playing
-      videoElement.value.currentTime = timeInSeconds; // Set currentTime to 9 seconds
-      console.log("Video duration:", videoElement.value.currentTime);
-      videoElement.value.play().catch((error) => {
-        console.error("Error playing video:", error);
-      });
-    } else {
-      // If the metadata isn't loaded yet, add an event listener
-      videoElement.value.addEventListener("loadedmetadata", () => {
-        const timeInSeconds = 9; // Hardcoded to 9 seconds
-        console.log("Requested time in seconds:", timeInSeconds);
-
-        videoElement.value.pause(); // Pause the video if it's playing
-        videoElement.value.currentTime = timeInSeconds; // Set currentTime to 9 seconds
-        
-        videoElement.value.play().catch((error) => {
-          console.error("Error playing video:", error);
-        });
-      });
-    }
-  } else {
-    console.error("Video element not found");
-  }
-};
-
+const notificationStore = useNotificationStore();
 // Function to save progress
 const saveProgress = async () => {
   const loader = $loading.show({});
   try {
     const payload = {
-      video_id: id,
+      video_id: router.currentRoute.value.params.id,
       status: progressMinutes.value, // Store progress in minutes
     };
     const resp = await videoStore.addVideoUser(payload);
-    console.log(resp.data.data);
+    notificationStore.showNotification("Progress Kamu Tersimpan 👍", "success");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   } finally {
     loader.hide();
   }
 };
 
+const refreshPage = async (id) => {
+  router.push('/courses/' + id);
+  await fetchData();
+};
+
 onMounted(async () => {
   await fetchData();
+  await fetchDataVideo();
 });
 </script>
 

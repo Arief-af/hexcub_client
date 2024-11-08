@@ -4,6 +4,7 @@ import HomePage from "../pages/home/index.vue";
 import PuzzlePage from "../pages/puzzle/index.vue";
 import PuzzleGamePage from "../pages/puzzle/game.vue";
 import GoogleMeetPage from "../pages/google_meet/index.vue";
+import GoogleMeetAdminPage from "../pages/google_meet/create.vue";
 import LandingPage from "../pages/landingPage/index.vue";
 import LoginPage from "../pages/auth/login.vue";
 import VerifPage from "../pages/auth/verif.vue";
@@ -20,14 +21,15 @@ import Profile from "@/pages/profile/index.vue";
 // admin
 
 import MateriPage from "@/pages/courses/create.vue";
+import { useAuthStore } from "../stores/authStore";
 const routes = [
   {
     path: "/courses/create",
     name: "coursesCreate",
     component: MateriPage,
     meta: {
-      requiredAuth: false,
-      requiredAdmin: false,
+      requiredAuth: true,
+      requiredAdmin: true,
       requiredMentor: false,
       title: "Buat Materi",
     },
@@ -37,7 +39,7 @@ const routes = [
     name: "coursesShow",
     component: courseShowPage,
     meta: {
-      requiredAuth: false,
+      requiredAuth: true,
       requiredAdmin: false,
       requiredMentor: false,
       title: "Materi",
@@ -48,8 +50,8 @@ const routes = [
     name: "coursesEdit",
     component: courseEditPage,
     meta: {
-      requiredAuth: false,
-      requiredAdmin: false,
+      requiredAuth: true,
+      requiredAdmin: true,
       requiredMentor: false,
       title: "Edit Materi",
     },
@@ -59,7 +61,7 @@ const routes = [
     name: "profile",
     component: Profile,
     meta: {
-      requiredAuth: false,
+      requiredAuth: true,
       requiredAdmin: false,
       requiredMentor: false,
       title: "Profile",
@@ -81,7 +83,7 @@ const routes = [
     name: "/courses",
     component: coursePage,
     meta: {
-      requiredAuth: false,
+      requiredAuth: true,
       requiredAdmin: false,
       requiredMentor: false,
       title: "Courses",
@@ -92,8 +94,8 @@ const routes = [
     name: "/courses/admin",
     component: courseAdminPage,
     meta: {
-      requiredAuth: false,
-      requiredAdmin: false,
+      requiredAuth: true,
+      requiredAdmin: true,
       requiredMentor: false,
       title: "Courses",
     },
@@ -169,8 +171,7 @@ const routes = [
     name: "home",
     component: HomePage,
     meta: {
-      requiresAuth: true,
-      requirePasien: true,
+      requiredAuth: true,
       title: "ZQDevs - Home",
     },
   },
@@ -179,7 +180,7 @@ const routes = [
     name: "landingPage",
     component: LandingPage,
     meta: {
-      requiresAuth: true,
+      requiredAuth: true,
       requirePasien: true,
       title: "ZQDevs - Home",
     },
@@ -189,8 +190,7 @@ const routes = [
     name: "puzzle",
     component: PuzzlePage,
     meta: {
-      requiresAuth: true,
-      requirePasien: true,
+      requiredAuth: true,
       title: "ZQDevs - Home",
     },
   },
@@ -199,7 +199,7 @@ const routes = [
     name: "game",
     component: PuzzleGamePage,
     meta: {
-      requiresAuth: true,
+      requiredAuth: true,
       requirePasien: true,
       title: "ZQDevs - Home",
     },
@@ -209,7 +209,18 @@ const routes = [
     name: "google_meet",
     component: GoogleMeetPage,
     meta: {
-      requiresAuth: true,
+      requiredAuth: true,
+      requirePasien: true,
+      title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/google_meet/admin",
+    name: "google_meet/admin",
+    component: GoogleMeetAdminPage,
+    meta: {
+      requiredAuth: true,
+      requiredAdmin: true,
       requirePasien: true,
       title: "ZQDevs - Home",
     },
@@ -224,48 +235,52 @@ const router = createRouter({
   },
 });
 
-// router.beforeEach((to, from, next) => {
-//   document.title = `RS MOBILE ${to.meta.title} | RS - By ZQDevs`;
-//   const authStore = useAuthStore();
-//   const isAuthenticated = authStore.isLoggedIn;
-//   const userRole = authStore.user?.role?.name || "";
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
 
-//   console.log(isAuthenticated, userRole);
+  // Cek jika pengguna sudah login
+  if (authStore.isLoggedIn) {
+    const userRole = authStore.user?.role.toLowerCase();
 
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     // If route requires authentication
-//     if (isAuthenticated) {
-//       // User is authenticated
-//       if (to.matched.some((record) => record.meta.requirePasien)) {
-//         // Route requires "pasien" role
-//         if (userRole === "pasien") {
-//           next(); // User has the correct role
-//         } else {
-//           next("/permission_denied"); // Redirect to a different page instead of looping to "/login"
-//         }
-//       } else {
-//         next(); // Proceed to route
-//       }
-//     } else {
-//       next("/login"); // User is not authenticated, redirect to login
-//     }
-//   } else {
-//     // Route does not require authentication
-//     if (isAuthenticated) {
-//       // If authenticated, check the role
-//       if (userRole === "pasien") {
-//         next("/app"); // Redirect to the appropriate page if already authenticated
-//       } else if (userRole === "admin") {
-//         next("/permission_denied"); // Redirect "pasien" user to their dashboard
-//       } else if (userRole === "dokter") {
-//         next("/permission_denied"); // Redirect "pasien" user to their dashboard
-//       } else {
-//         next(); // Allow access to non-auth routes
-//       }
-//     } else {
-//       next(); // Allow access to non-auth routes
-//     }
-//   }
-// });
+    // Jika pengguna sudah login dan mencoba mengakses halaman login, arahkan ke halaman yang sesuai
+    if (to.path === '/login' || to.path === '/register') {
+      // Redirect berdasarkan peran
+      if (userRole === 'admin') {
+        return next({ path: '/courses/admin' }); // Redirect ke Learning Camp untuk admin atau mentor
+      } else {
+        return next({ path: '/courses' }); // Redirect ke profile untuk peserta biasa
+      }
+    }
+  }
+
+  // Cek jika rute memerlukan autentikasi
+  if (to.meta.requiredAuth) {
+    // Jika pengguna tidak terautentikasi, arahkan ke halaman login
+    if (!authStore.isLoggedIn) {
+      return next({ path: '/login' }); // Ganti dengan rute halaman login Anda
+    }
+
+    // Cek peran pengguna
+    const userRole = authStore.user?.role ? authStore.user.role.toLowerCase() : ''; // Atur ke string kosong jika null
+    // console.log(userRole);
+
+    // Tambahkan logika untuk memeriksa akses untuk admin dan mentor
+    const isAdmin = userRole === 'admin';
+
+    // Cek apakah rute memerlukan admin dan mentor
+    if (to.meta.requiredAdmin && to.meta.requiredMentor) {
+      if (!isAdmin && !isMentor) {
+        return next({ path: '/unauthorized' }); // Ganti dengan rute halaman tidak berwenang Anda
+      }
+    } else if (to.meta.requiredAdmin && !isAdmin) {
+      return next({ path: '/unauthorized' }); // Ganti dengan rute halaman tidak berwenang Anda
+    } else if (to.meta.requiredMentor && !isMentor) {
+      return next({ path: '/unauthorized' }); // Ganti dengan rute halaman tidak berwenang Anda
+    }
+  }
+
+  // Izinkan akses ke rute
+  next();
+});
 
 export default router;

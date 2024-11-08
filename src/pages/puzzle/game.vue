@@ -58,11 +58,18 @@
         />
         <img v-else class="" :src="gameInit.game" alt="" />
       </div>
-      <Button
-        @click="openModal"
-        class="px-[60px] rounded-full bg-primary text-white hover:bg-primary hover:text-white absolute bottom-12 right-20"
-        >Kirim</Button
-      >
+      <div class="absolute bottom-8 flex gap-2 right-20">
+        <Button
+          @click="toggleBGM"
+          class="px-[10px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white "
+          ><box-icon class="fill-white" :name='isBGMPlaying ? "volume-full" : "volume-mute"'></box-icon></Button
+        >
+        <Button
+          @click="openModal"
+          class="px-[60px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white "
+          >Kirim</Button
+        >
+      </div>
     </div>
     <div
       class="w-full py-10 px-10 bg-primary rounded-full border-dashed flex gap-5 items-center justify-center"
@@ -143,6 +150,21 @@
       <source src="@/assets/sounds/bgm.m4a" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
+
+    <audio ref="loseAudio" class="hidden">
+      <source src="@/assets/sounds/lose.wav" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio ref="winAudio" class="hidden">
+      <source src="@/assets/sounds/win.wav" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio ref="warnAudio" class="hidden">
+      <source src="@/assets/sounds/warn.wav" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
   </DashboardLayout>
 </template>
 
@@ -167,10 +189,16 @@ import tomatoYellow from "@/assets/images/game-tomato-yellow.png";
 
 import Modal from "@/components/modal/index.vue";
 import { useRouter } from "vue-router";
+import { useNotificationStore } from "../../stores/notification";
 
 const audioPop = ref(null);  // Reference for sound effect
 const bgmAudio = ref(null);  // Reference for background music
+const loseAudio = ref(null);  // Reference for background music
+const winAudio = ref(null);  // Reference for background music
+const warnAudio = ref(null);  // Reference for background music
 
+const isBGMPlaying = ref(true);
+const notificationStore = useNotificationStore();
 const router = useRouter();
 const goTo = (path) => {
   console.log(path);
@@ -182,6 +210,16 @@ const win = ref(null);
 const playAudio = (audio) => {
   if (audio && audio.paused) {
     audio.play();
+  }
+};
+
+const toggleBGM = () => {
+  if (bgmAudio.value.paused) {
+    bgmAudio.value.play();
+    isBGMPlaying.value = true;
+  } else {
+    isBGMPlaying.value = false;
+    bgmAudio.value.pause();
   }
 };
 
@@ -240,8 +278,10 @@ const onSubmit = () => {
     dropzone3.value[0].text == gameInit.value.color
   ) {
     win.value = true;
+    playAudio(winAudio.value);
   } else {
     win.value = false;
+    playAudio(loseAudio.value);
   }
 };
 
@@ -251,10 +291,16 @@ const handleDrop = (zone, event) => {
 
   // Cek apakah dropzone 2 atau 3 sudah penuh
   if (zone === 2 && dropzone2.value.length >= 1) {
-    alert("Sudah ada 2 item di dropzone 2");
+    playAudio(warnAudio.value)
+    notificationStore.showNotification(
+      "Keluarkan dulu item ini untuk mengganti dengan item lain", "warning"
+    )
     return;
   } else if (zone === 3 && dropzone3.value.length >= 1) {
-    alert("Sudah ada 2 item di dropzone 3");
+    playAudio(warnAudio.value)
+    notificationStore.showNotification(
+      "Keluarkan dulu item ini untuk mengganti dengan item lain", "warning"
+    )
     return;
   }
 

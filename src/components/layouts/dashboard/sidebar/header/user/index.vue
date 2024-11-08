@@ -17,7 +17,7 @@ import ProfileDefault from "@/assets/images/profileDefault.png";
 import { useAuthStore } from "@/stores/authStore";
 const authStore = useAuthStore();
 
-console.log(authStore.user);
+// console.log(authStore.user);
 
 const getBackendFullURL = (img) => {
   return import.meta.env.VITE_API_URI + "/" + img;

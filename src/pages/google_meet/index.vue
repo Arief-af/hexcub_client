@@ -5,14 +5,14 @@
       class="bg-primary text-white px-10 xl:px-40 rounded-3xl h-[431px] mt-5 flex items-center"
     >
       <section>
-        <span class="text-[26px]">{{ data.data?.data?.data[0]?.date }} <br /></span>
-        <span class="font-bold text-[26px]">{{ data.data?.data?.data[0]?.title }}</span> <br />
-        <span class="text-[20px]">Bersama kak {{  data.data?.data?.data[0]?.instructor }} </span>
+        <span class="text-[26px]">{{ data?.date }} <br /></span>
+        <span class="font-bold text-[26px]">{{ data?.title }}</span> <br />
+        <span class="text-[20px]">Bersama kak {{  data?.instructor }} </span>
       </section>
     </main>
     <div class="text-center mt-5">
       <Button
-        @click="openNewTab(data.data?.data?.data[0]?.url)"
+        @click="openNewTab(data?.url)"
         class="px-16 dark:bg-[#449072] dark:text-white dark:hover:bg-primary dark:hover:text-white bg-[#449072] text-white hover:bg-primary hover:text-white"
         >Join</Button
       >
@@ -29,7 +29,8 @@ const meetsStore = useMeetStore();
 const data = ref([]);
 const fetchData = async () => {
   try {
-    data.value = await meetsStore.getData();
+    const resp = await meetsStore.getData();
+    data.value = resp.data.data;
     console.log(data.value);
   } catch (error) {
     console.log(error);
