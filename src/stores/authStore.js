@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import router from "../router";
+import { get } from "@vueuse/core";
 
 export const useAuthStore = defineStore({
   id: "auth",
@@ -128,6 +129,30 @@ export const useAuthStore = defineStore({
       try {
         const resp = await axios.post("/api/users/profile/update", data);
         await this.me();
+        return resp;
+      } catch (error) {
+        throw error;
+      }
+    },
+    async sendMessage(data) {
+      try {
+        const resp = await axios.post("/api/contacts", data);
+        return resp;
+      } catch (error) {
+        throw error;
+      }
+    },
+    async getMessage(page = 1, search = "") {
+      try {
+        const resp = await axios.get("/api/contacts?page=" + page + "&search=" + search);
+        return resp;
+      } catch (error) {
+        throw error;
+      }
+    },
+    async deleteMessage(id) {
+      try {
+        const resp = await axios.delete("/api/contacts/" + id);
         return resp;
       } catch (error) {
         throw error;

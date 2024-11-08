@@ -1,10 +1,9 @@
 <template>
   <DashboardLayout>
     <section>
-      <h4 class="text-xl font-bold text-primary">Kelola Materi!</h4>
-      <div class="flex items-center justify-between">
-        <Button class="bg-primary hover:bg-primary" @click="$router.push('/courses/create')">Tambah Materi</Button>
-        <div class="flex gap-2 dark:bg-[#1D1D1D] rounded-full px-5 py-1 mb-5">
+      <h4 class="text-xl font-bold text-primary">Kotak Masuk</h4>
+      <div class="flex items-center justify-end">
+        <div class="flex gap-2 dark:bg-[#1D1D1D] rounded-full px-5 py-1 mb-2">
           <FormInput v-model="search" placeholder="Cari materi"></FormInput>
           <Button
             @click="fetchData()"
@@ -21,11 +20,12 @@
           :data="data"
           :headers="[
             'id',
-            'video',
-            'Title',
-            'duration',
+            'Subject',
+            'Nama Lengkap',
+            'Email',
+            'No Telp',
+            'Pesan',
             'Created_at',
-            'Updated_at',
           ]"
           :action="true"
         >
@@ -49,7 +49,7 @@
                 >
                   <section>
                     <div class="text-primary my-5 text-md">
-                      Apakah anda yakin ingin menghapus kelas {{ row.title }}?
+                      Apakah anda yakin ingin menghapus pesan ini? {{ row.subject }}?
                     </div>
                     <div class="flex gap-2 justify-start">
                       <DialogClose as-child>
@@ -70,11 +70,6 @@
                   </section>
                 </DialogContent>
               </Dialog>
-              <Button
-                @click="$router.push('/courses/' + row.id + '/edit')"
-                class="py-2 px-2"
-                >Edit</Button
-              >
             </div>
           </template>
         </Table>
@@ -113,33 +108,29 @@
 <script setup>
 import DashboardLayout from "@/layouts/dashboard/index.vue";
 import { Button } from "@/components/ui/button/index.js";
-import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import { useLoading } from "vue-loading-overlay";
-import { useVideoStore } from "../../stores/videoStore";
+import { useAuthStore } from "../../stores/AuthStore";
 
 const $loading = useLoading({});
-const videoStore = useVideoStore();
-
-const getFullUrl = (url) => {
-  return import.meta.env.VITE_API_URI + "/" + url;
-};
+const authStore = useAuthStore();
 
 let search = ref("");
 let pagination = ref([]);
 const fetchData = async (page = 1) => {
   const loader = $loading.show({});
   try {
-    const resp = await videoStore.getData(page, search.value);
+    const resp = await authStore.getMessage(page, search.value);
     console.log(resp.data.data);
     pagination.value = resp.data.data;
     data.value = resp.data.data.data.map((item) => ({
       id: item.id,
-      file: getFullUrl(item.file),
-      title: item.title,
-      duration: item.duration,
+      subject: item.subject,
+      name: item.name,
+      email: item.email,
+      phone_number: item.phone_number,
+      message: item.message,
       created_at: item.created_at,
-      updated_at: item.updated_at,
     }));
   } catch (error) {
     console.log(error);
@@ -153,7 +144,7 @@ const notificationStore = useNotificationStore();
 const onDelete = async (id) => {
   const loader = $loading.show({});
   try {
-    const resp = await videoStore.delete(id);
+    const resp = await authStore.deleteMessage(id);
     notificationStore.showNotification(resp?.data?.message, "success");
     fetchData();
   } catch (error) {

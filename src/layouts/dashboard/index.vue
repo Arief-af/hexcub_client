@@ -53,6 +53,14 @@
         >
           <box-icon name="video" :class="route == '/google_meet/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
         </div>
+        <div
+          v-if="isAdmin"
+          :class="route == '/contact/admin' ? 'bg-primary' : 'bg-white'"
+           @click="$router.push('/contact/admin')"
+          class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
+        >
+          <box-icon name='message-dots' :class="route == '/contact/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+        </div>
       </div>
     </section>
     <Transition name="side">

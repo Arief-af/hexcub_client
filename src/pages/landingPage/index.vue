@@ -88,28 +88,28 @@
         class="my-20 bg-primary rounded-lg p-10 md:p-20 text-white"
       >
         <h4 class="text-[22px] font-bold">Hubungi kami</h4>
-        <form>
+        <form @submit.prevent="onSendMessage">
           <div class="block md:flex gap-5">
-            <FormInput placeholder="Email" class="w-full mt-5">
+            <FormInput v-model="formData.email" placeholder="Email" class="w-full mt-5">
               <template #label>Email</template>
             </FormInput>
-            <FormInput placeholder="Name" class="w-full mt-5">
-              <template #label>Name</template>
+            <FormInput v-model="formData.name" placeholder="Nama Lengkap" class="w-full mt-5">
+              <template #label>Nama Lengkap</template>
             </FormInput>
           </div>
           <div class="block md:flex gap-5">
-            <FormInput placeholder="Email" class="w-full mt-5">
-              <template #label>Email</template>
+            <FormInput v-model="formData.phone_number" placeholder="No Telp" class="w-full mt-5">
+              <template #label>No Telp</template>
             </FormInput>
-            <FormInput placeholder="Subject" class="w-full mt-5">
-              <template #label>Subject</template>
+            <FormInput v-model="formData.subject" placeholder="Judul" class="w-full mt-5">
+              <template #label>Judul</template>
             </FormInput>
           </div>
-          <TextArea placeholder="Pesan">
+          <TextArea v-model="formData.message" placeholder="Pesan">
             <template #label>Pesan</template>
           </TextArea>
           <div class="flex justify-end">
-            <Button outline :hover="false" class="w-max py-3 mt-5"
+            <Button type="submit" outline :hover="false" class="w-max py-3 mt-5"
               >Kirim</Button
             >
           </div>
@@ -134,6 +134,27 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useAuthStore } from "../../stores/authStore";
+import { useLoading } from "vue-loading-overlay";
+import { ref } from "vue";
+import { useNotificationStore } from "../../stores/notification";
+
+let formData = ref({});
+const notif = useNotificationStore();
+const $loading = useLoading({});
+const authStore = useAuthStore();
+const onSendMessage = async () => {
+  const loading = $loading.show();
+  try {
+    await authStore.sendMessage(formData.value);
+    formData.value = {};
+    notif.showNotification("Pesan terkirim", "success");
+  } catch (error) {
+    notif.showNotification("Pesan gagal terkirim", "error");
+  } finally {
+    loading.hide();
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

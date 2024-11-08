@@ -32,6 +32,7 @@
               v-model="formData.duration"
               :marginBottom="true"
               type="number"
+              formReadonly
               placeholder="Duration (min)"
               class="w-full mt-2"
             >

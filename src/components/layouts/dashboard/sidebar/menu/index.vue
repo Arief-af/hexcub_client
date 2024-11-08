@@ -54,7 +54,7 @@ const isAdmin = ref(useAuthStore().user.role === "admin");
 // Data array
 const data = ref([
   {
-    name: "My Profile",
+    name: "Profil",
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
@@ -62,7 +62,7 @@ const data = ref([
     is_admin: false
   },
   {
-    name: "My Courses",
+    name: "Materi",
     icon: dashboardIcon,
     active: false,
     path: "/courses",
@@ -85,7 +85,7 @@ const data = ref([
     is_admin: false
   },
   {
-    name: "Courses Admin",
+    name: "Kelola Materi",
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
@@ -93,11 +93,19 @@ const data = ref([
     is_admin: true,
   },
   {
-    name: "Google Meet Admin",
+    name: "Kelola Google Meet",
     icon: dashboardIcon,
     icon: dashboardDarkIcon,
     active: false,
     path: "/google_meet/admin",
+    is_admin: true,
+  },
+  {
+    name: "Kotak Masuk",
+    icon: dashboardIcon,
+    icon: dashboardDarkIcon,
+    active: false,
+    path: "/contact/admin",
     is_admin: true,
   },
 ]);

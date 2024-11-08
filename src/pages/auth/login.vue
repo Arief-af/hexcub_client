@@ -70,7 +70,7 @@ const onSubmit = async () => {
     notificationStore.showNotification(resp?.data?.message, "success");
     const role = authStore.user.role?.toLowerCase();
     if (role === "admin") {
-      router.push("/courses/create");
+      router.push("/courses/admin");
     }else{
       router.push("/courses");
     }

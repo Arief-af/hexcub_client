@@ -18,6 +18,7 @@ import courseEditPage from "@/pages/courses/edit.vue";
 import courseAdminPage from "@/pages/courses/indexAdmin.vue";
 import constractionPage from "@/pages/auth/constraction.vue";
 import Profile from "@/pages/profile/index.vue";
+import ContactPage from "@/pages/contact/indexAdmin.vue";
 // admin
 
 import MateriPage from "@/pages/courses/create.vue";
@@ -180,8 +181,8 @@ const routes = [
     name: "landingPage",
     component: LandingPage,
     meta: {
-      requiredAuth: true,
-      requirePasien: true,
+      requiredAuth: false,
+      requirePasien: false,
       title: "ZQDevs - Home",
     },
   },
@@ -223,6 +224,17 @@ const routes = [
       requiredAdmin: true,
       requirePasien: true,
       title: "ZQDevs - Home",
+    },
+  },
+  {
+    path: "/contact/admin",
+    name: "contact/admin",
+    component: ContactPage,
+    meta: {
+      requiredAuth: true,
+      requiredAdmin: true,
+      requirePasien: true,
+      title: "Contact",
     },
   },
 ];
