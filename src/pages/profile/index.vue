@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <main class="mt-10">
-      <div class="flex flex-wrap justify-center gap-5">
+      <div class="flex flex-col items-center flex-wrap justify-center gap-5">
         <div class="w-max flex items-center flex-col">
           <div class="text-xl font-bold text-primary mb-5">Profile</div>
           <img
@@ -97,7 +97,7 @@ const formData = ref({});
 formData.value = authStore.user;
 // Function to select image and preview it
 const selectImage = (e: Event) => {
-  const file = (e.target as HTMLInputElement).files?.[0];
+const file = (e.target as HTMLInputElement).files?.[0];
   if (file) {
     formData.value.image = file;
     const reader = new FileReader();
@@ -114,14 +114,27 @@ import { onMounted } from "vue";
 const $loading = useLoading({});
 const notificationStore = useNotificationStore();
 const user_id = authStore.user.id;
+function isEmpty(obj) {
+    if (obj === null || obj === undefined) return false;
+    return Object.keys(obj).length === 0;
+}
 const updateProfile = async () => {
   const loader = $loading.show({});
   try {
     const dataForm = new FormData();
+    if (formData.value.name) {
+      dataForm.append("name", formData.value.name);
+    }
+    if (formData.value.email) {
+      dataForm.append("email", formData.value.email);
+    }
+    if (formData.value.phone_number) {
+      dataForm.append("phone_number", formData.value.phone_number);
+    }
     if (formData.value.password) {
       dataForm.append("password", formData.value.password);
     }
-    if (formData.value.image) {
+    if (isEmpty(formData.value.image)) {
       dataForm.append("image", formData.value.image);
     }
     if (formData.value.password_confirmation) {
@@ -132,14 +145,19 @@ const updateProfile = async () => {
     }
 
     dataForm.append("_method", "PUT");
-    await authStore.updateProfile(user_id, dataForm);
+    const resp = await authStore.updateProfile(dataForm);
     if (formData.value.password && formData.value.password_confirmation) {
       formData.value.password = "";
       formData.value.password_confirmation = "";
       authStore.logout();
     }
-    notificationStore.showNotification("Profile updated", "success");
+    notificationStore.showNotification(resp?.data?.message, "success");
+    if (resp?.data?.message == "Update berhasil, silakan cek email Anda untuk verifikasi."){
+      authStore.clearState();
+    }
   } catch (error) {
+    console.log(error);
+    
     notificationStore.showNotification(error?.response?.data?.message, "error");
   } finally {
     loader.hide();
@@ -154,7 +172,7 @@ const openFilePicker = () => {
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const getBackendFullURL = (img) => {
-  return import.meta.env.VITE_BASE_URL + "storage/" + img;
+  return import.meta.env.VITE_API_URI + "/" + img;
 };
 
 </script>

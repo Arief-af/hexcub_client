@@ -124,9 +124,9 @@ export const useAuthStore = defineStore({
         throw error;
       }
     },
-    async updateProfile(user_id, data) {
+    async updateProfile(data) {
       try {
-        const resp = await axios.post("/api/users/"+ user_id, data);
+        const resp = await axios.post("/api/users/profile/update", data);
         await this.me();
         return resp;
       } catch (error) {

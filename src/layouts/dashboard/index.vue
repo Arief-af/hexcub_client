@@ -1,10 +1,12 @@
 <template>
   <section class="w-screen h-screen dark:bg-[#262626] bg-[#FFF] flex">
     <section
-      class="z-20 hidden w-[93px] bg-primary md:flex items-center flex-col gap-5 justify-center pt-[29px] h-full md:relative fixed left-0"
+      class="z-20 hidden w-[93px] bg-primary md:flex items-center flex-col gap-5 pt-[29px] h-full md:relative fixed left-0"
     >
-      <div class="mt-24 flex flex-col gap-3">
+      <div class="w-full h-[300px] mt-[44px]"></div>
+      <div class="flex flex-col gap-3">
         <div
+          v-if="!isAdmin"
           :class="route == '/profile' ? 'bg-primary' : 'bg-white' "
            @click="$router.push('/profile')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
@@ -12,6 +14,7 @@
           <box-icon :class="route == '/profile' ? 'fill-white' : 'fill-primary'" class=" w-8 h-8" name="user"></box-icon>
         </div>
         <div
+          v-if="!isAdmin"
           :class="route == '/courses' ? 'bg-primary' : 'bg-white'"
            @click="$router.push('/courses')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
@@ -19,6 +22,15 @@
           <box-icon name="book" :class="route == '/courses' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
         </div>
         <div
+          v-else
+          :class="route == '/courses/admin' ? 'bg-primary' : 'bg-white'"
+           @click="$router.push('/courses/admin')"
+          class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
+        >
+          <box-icon name="book" :class="route == '/courses/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+        </div>
+        <div
+          v-if="!isAdmin"
           :class="route == '/puzzle' ? 'bg-primary' : 'bg-white'"
            @click="$router.push('/puzzle')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
@@ -26,11 +38,20 @@
           <box-icon name="dice-3" :class="route == '/puzzle' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
         </div>
         <div
+          v-if="!isAdmin"
           :class="route == '/google_meet' ? 'bg-primary' : 'bg-white'"
            @click="$router.push('/google_meet')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
           <box-icon name="video" :class="route == '/google_meet' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+        </div>
+        <div
+          v-else
+          :class="route == '/google_meet/admin' ? 'bg-primary' : 'bg-white'"
+           @click="$router.push('/google_meet/admin')"
+          class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
+        >
+          <box-icon name="video" :class="route == '/google_meet/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
         </div>
       </div>
     </section>
@@ -91,17 +112,17 @@
             ></box-icon>
           </Button>
 
-          <Button
+          <!-- <Button
             class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
           >
             <box-icon
               class="fill-white dark:fill-[#1D1D1D]"
               name="bell"
             ></box-icon>
-          </Button>
+          </Button> -->
 
           <Button
-            @click="toggleDarkMode"
+            @click="logout"
             class="dark:bg-primary px-10 bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
           >
             <span class="">Logout</span>
@@ -134,11 +155,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "../../stores/authStore";
+import { useNotificationStore } from "../../stores/notification";
+import { ref } from "vue";
 function toggleDarkMode() {
   useDarkModeStore().toggle();
 }
 // current route 
 const route = useRouter().currentRoute.value.fullPath
+
+const logout = () => {
+  useAuthStore().logout();
+  useNotificationStore().showNotification("Logout berhasil", 'success');
+}
+
+const isAdmin = ref(useAuthStore().user.role === "admin");
 </script>
 
 <style lang="scss" scoped></style>

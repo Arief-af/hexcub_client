@@ -84,7 +84,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useChat } from "@/composables/useChat";
-import FormInputBot from "@/components/form/InputBot.vue";
+import FormInputBot from "@/components/form/inputBot.vue";
 
 const { sendMessage } = useChat();
 onMounted(async () => {});
@@ -141,7 +141,7 @@ let active = ref(false);
 
 const toggleActive = () => {
   active.value = !active.value;
-  fullscreen.value = !fullscreen.value;
+  fullscreen.value = fullscreen.value ? false : false;
 };
 </script>
 

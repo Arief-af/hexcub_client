@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul>
-      <li class="cursor-pointer" v-for="(item, index) in data" :key="index">
+      <li class="cursor-pointer" v-for="(item, index) in filteredSubItems(data)" :key="index">
         <section>
           <div
-            @click="toggleActive(index)"
+            @click="$router.push(item.path)"
             :class="route == item.path ? 'bg-primary text-white dark:bg-[#1D1D1D]' : 'text-primary'"
             class="relative border border-primary z-20 py-[10px] mb-5 flex gap-2 justify-between items-center px-[42px] rounded-full  hover:bg-primary hover:text-white"
           >
@@ -21,7 +21,7 @@
           <Transition>
             <div v-if="item.active" class="relative z-10 mb-2">
               <div
-                v-for="subItem in item.subItem"
+                v-for="subItem in filteredSubItems(item.subItem)"
                 :key="subItem.name"
                 class="py-[6px] ml-[30px] h-[40px] flex items-center gap-[20.29px] border-l-2 border-[#898989]"
               >
@@ -44,7 +44,11 @@ import { ref } from "vue";
 import dashboardIcon from "@/components/layouts/dashboard/icons/dashboard.svg";
 import dashboardDarkIcon from "@/components/layouts/dashboard/icons/dashboard.svg";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "../../../../../stores/authStore";
 const route = useRouter().currentRoute.value.fullPath;
+const isAdmin = ref(useAuthStore().user.role === "admin");
+console.log(isAdmin.value);
+
 console.log(route);
 
 // Data array
@@ -55,12 +59,14 @@ const data = ref([
     icon: dashboardDarkIcon,
     active: false,
     path: "/profile",
+    is_admin: false
   },
   {
     name: "My Courses",
     icon: dashboardIcon,
     active: false,
     path: "/courses",
+    is_admin: false
   },
   {
     name: "Puzzle Game",
@@ -68,6 +74,7 @@ const data = ref([
     icon: dashboardDarkIcon,
     active: false,
     path: "/puzzle",
+    is_admin: false
   },
   {
     name: "Google Meet",
@@ -75,6 +82,23 @@ const data = ref([
     icon: dashboardDarkIcon,
     active: false,
     path: "/google_meet",
+    is_admin: false
+  },
+  {
+    name: "Courses Admin",
+    icon: dashboardIcon,
+    icon: dashboardDarkIcon,
+    active: false,
+    path: "/courses/admin",
+    is_admin: true,
+  },
+  {
+    name: "Google Meet Admin",
+    icon: dashboardIcon,
+    icon: dashboardDarkIcon,
+    active: false,
+    path: "/google_meet/admin",
+    is_admin: true,
   },
 ]);
 
@@ -86,6 +110,15 @@ const toggleActive = (index) => {
   } else {
     router.push({ path: data.value[index].path });
   }
+};
+
+const filteredSubItems = (subItems) => {
+  console.log(subItems);
+  
+  return subItems.filter((subItem) => {
+    if (isAdmin.value) return subItem.is_admin;
+    return !subItem.is_admin;
+  });
 };
 </script>
 
