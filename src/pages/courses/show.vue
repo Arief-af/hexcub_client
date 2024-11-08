@@ -2,9 +2,9 @@
   <DashboardLayout>
     <section>
       <h4 class="text-xl font-bold text-primary">Perkembangan Belajar Kamu!</h4>
-      <div class="flex gap-5 mt-5 flex-wrap">
+      <div class="xl:flex block gap-5 mt-5 flex-wrap">
         <div
-          class="w-[calc(70%-10px)] p-5 dark:bg-[#1E2925] bg-[#FBF5F2] sidebar-bg rounded-3xl overflow-hidden"
+          class="xl:w-[calc(70%-10px)] p-5 dark:bg-[#1E2925] bg-[#FBF5F2] sidebar-bg rounded-3xl overflow-hidden"
         >
           <div class="w-full">
             <video
@@ -18,7 +18,7 @@
         </div>
 
         <div
-          class="w-[calc(30%-10px)] p-10 bg-[#FBF5F2] rounded-3xl overflow-hidden"
+          class="mt-5 xl:w-[calc(30%-10px)] p-10 bg-[#FBF5F2] rounded-3xl overflow-hidden"
         >
           <h4 class="text-xl font-bold text-primary mb-4">Detail Video</h4>
           <div
@@ -133,7 +133,6 @@ const saveProgress = async () => {
     loader.hide();
   }
 };
-
 
 onMounted(async () => {
   await fetchData();
