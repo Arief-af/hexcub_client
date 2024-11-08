@@ -8,7 +8,6 @@ const app = createApp(App);
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-
 import { TailwindPagination } from "laravel-vue-pagination";
 app.component("TailwindPagination", TailwindPagination);
 import "vue-loading-overlay/dist/css/index.css";

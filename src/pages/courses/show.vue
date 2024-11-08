@@ -20,13 +20,12 @@
         <div
           class="w-[calc(30%-10px)] p-10 bg-[#FBF5F2] rounded-3xl overflow-hidden"
         >
-          <h4 class="text-xl font-bold text-primary mb-4">Video Lainnya</h4>
+          <h4 class="text-xl font-bold text-primary mb-4">Detail Video</h4>
           <div
             :key="index"
-            @click="refreshPage(item.id)"
-            :class="item.id == $route.params.id ? 'bg-primary text-white' : 'border border-primary text-primary' " 
-            class="mb-2 p-2 rounded-xl cursor-pointer"
-            v-for="(item, index) in dataVideo"
+            @click="playVideoAtMinute(item.time)"
+            class="bg-primary mb-2 cursor-pointer p-2 rounded-xl text-white"
+            v-for="(item, index) in data.video_details"
           >
             {{ item.title }}
           </div>
@@ -54,7 +53,6 @@ import { useLoading } from "vue-loading-overlay";
 import { useVideoStore } from "../../stores/videoStore";
 import { useRouter } from "vue-router";
 import { useNotificationStore } from "../../stores/notification";
-
 const $loading = useLoading({});
 const videoStore = useVideoStore();
 let data = ref([]);
@@ -64,7 +62,36 @@ const router = useRouter();
 const id = router.currentRoute.value.params.id;
 
 const getFullUrl = (url) => {
-  return import.meta.env.VITE_API_URI + "/" + url;
+  if (!url) {
+    console.warn("URL is undefined or empty.");
+    return null; // or return a default URL if needed
+  }
+
+  // Remove the "files/" prefix from the URL
+  const filename = url.replace(/^files\//, "");
+
+  // Construct the full URL using the environment variable
+  return `${import.meta.env.VITE_API_URI}/stream/${filename}`;
+};
+
+const playVideoAtMinute = (time) => {
+  if (videoElement.value) {
+    const timeInSeconds = time * 60; // Convert minutes to seconds
+    console.log("Requested time in seconds:", timeInSeconds);
+    // Function to save progress
+    // Pause the video, set currentTime, and then play
+    videoElement.value.pause(); // Pause if the video is playing
+    videoElement.value.currentTime = timeInSeconds; // Set currentTime to requested value
+    // Listen for the seeked event to ensure currentTime has been set before playing
+    videoElement.value.addEventListener("seeked", () => {
+      console.log(`Video seeked to: ${videoElement.value.currentTime}`);
+      videoElement.value.play().catch((error) => {
+        console.error("Error playing video:", error);
+      });
+    });
+  } else {
+    console.error("Video element not found");
+  }
 };
 
 // Function to fetch video data
@@ -73,29 +100,6 @@ const fetchData = async () => {
   try {
     const resp = await videoStore.show(id);
     data.value = resp.data.data;
-  } catch (error) {
-    // console.log(error);
-  } finally {
-    loader.hide();
-  }
-};
-
-let dataVideo = ref([]);
-let paginationVideo = ref([]);
-const fetchDataVideo = async (page = 1) => {
-  const loader = $loading.show({});
-  try {
-    const resp = await videoStore.getData(page);
-    // console.log(resp.data.data);
-    paginationVideo.value = resp.data.data;
-    dataVideo.value = resp.data.data.data.map((item) => ({
-      id: item.id,
-      file: getFullUrl(item.file),
-      title: item.title,
-      duration: item.duration,
-      created_at: item.created_at,
-      updated_at: item.updated_at,
-    }));
   } catch (error) {
     // console.log(error);
   } finally {
@@ -130,14 +134,9 @@ const saveProgress = async () => {
   }
 };
 
-const refreshPage = async (id) => {
-  router.push('/courses/' + id);
-  await fetchData();
-};
 
 onMounted(async () => {
   await fetchData();
-  await fetchDataVideo();
 });
 </script>
 

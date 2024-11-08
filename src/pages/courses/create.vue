@@ -55,7 +55,7 @@
             </FormInputFile>
           </div>
         </div>
-        <!-- <h5 class="text-lg font-semibold text-primary">Time Stamps <Button type="button" @click="addTimeStamp" class="ml-5 p-2">Add time stamp</Button></h5>
+        <h5 class="text-lg font-semibold text-primary">Time Stamps <Button type="button" @click="addTimeStamp" class="ml-5 p-2">Add time stamp</Button></h5>
         <section class="border border-primary p-5 rounded-2xl mt-16 relative" v-for="(item, index) in formData.timeStamps" :key="index">
           <div class="absolute right-5 -top-8">
             <Button type="button" @click="deleteTimeStamp(index)" class="py-3">Delete</Button>
@@ -85,7 +85,7 @@
               </template>
             </FormInput>
           </div>
-        </section> -->
+        </section>
         <div class="flex justify-end">
           <Button type="submit" class="w-max py-3 mt-5">Buat Materi</Button>
         </div>

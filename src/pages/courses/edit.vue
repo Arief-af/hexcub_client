@@ -4,6 +4,7 @@
       <h4 class="text-xl font-bold text-primary">Buat Materi</h4>
       <form @submit.prevent="onSubmit">
         <!-- Video preview section -->
+         {{ formData.file }} - {{ videoURL }}
         <div v-if="videoURL" class="w-full mt-3">
           <h5 class="text-lg font-semibold text-primary">Video Preview</h5>
           <video
@@ -57,7 +58,7 @@
             </FormInputFile>
           </div>
         </div>
-        <!-- <h5 class="text-lg font-semibold text-primary">
+        <h5 class="text-lg font-semibold text-primary">
           Time Stamps
           <Button type="button" @click="addTimeStamp" class="ml-5 p-2"
             >Add time stamp</Button
@@ -111,7 +112,7 @@
               </template>
             </FormInput>
           </div>
-        </section> -->
+        </section>
         <div class="flex justify-end">
           <Button type="submit" class="w-max py-3 mt-5">Update Materi</Button>
         </div>
@@ -235,8 +236,29 @@ const fetchData = async () => {
 };
 
 const getFullUrl = (url) => {
-  return import.meta.env.VITE_API_URI + "/" + url;
+  // Check if URL is a Blob or URL object (for locally uploaded files), and if so, return it directly
+  if (url instanceof Blob || url instanceof URL || url.startsWith("blob:")) {
+    return url;
+  }
+
+  // Check if URL is undefined, null, or empty
+  if (!url || typeof url !== "string") {
+    console.warn("URL is undefined, empty, or not a string.");
+    return null; // or return a default URL if needed
+  }
+
+  // Skip transformation if URL is already an absolute path or from server
+  if (url.startsWith("http") || url.startsWith("/")) {
+    return url;
+  }
+
+  // Remove the "files/" prefix from the URL
+  const filename = url.replace(/^files\//, "");
+
+  // Construct the full URL using the environment variable
+  return `${import.meta.env.VITE_API_URI}/stream/${filename}`;
 };
+
 
 onMounted(async () => {
   await fetchData();
