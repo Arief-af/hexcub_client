@@ -91,7 +91,7 @@
           </div>
           <Logo class="md:block hidden" />
         </section>
-        <DropdownMenu>
+        <!-- <DropdownMenu>
           <DropdownMenuTrigger
             class="bg-primary hover:bg-[#0C3E7C] text-white w-full max-w-[126px] px-2 py-2 rounded block sm:hidden"
             >Hallo, User!</DropdownMenuTrigger
@@ -108,8 +108,8 @@
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Signout</DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
-        <section class="sm:flex gap-2 hidden">
+        </DropdownMenu> -->
+        <section class="flex gap-2">
           <Button
             @click="toggleDarkMode"
             class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"

@@ -12,7 +12,7 @@
             class="w-full mt-2 rounded-lg"
             @loadedmetadata="onVideoLoaded"
           ></video>
-          <p v-if="totalDuration">Total Duration: {{ totalDuration }} seconds</p>
+          <!-- <p v-if="totalDuration">Total Duration: {{ totalDuration }} seconds</p> -->
         </div>
         <div class="w-full block gap-3">
           <div class="w-full">
@@ -24,6 +24,18 @@
             >
               <template #label>
                 <span class="text-primary">Title*</span>
+              </template>
+            </FormInput>
+          </div>
+          <div class="w-full">
+            <FormInput
+              v-model="formData.materi"
+              :marginBottom="true"
+              placeholder="Url File Materi"
+              class="w-full mt-2"
+            >
+              <template #label>
+                <span class="text-primary">URL File Materi*</span>
               </template>
             </FormInput>
           </div>
@@ -150,6 +162,9 @@ const onSubmit = async () => {
     }
     if (formData.value.title) {
       dataForm.append("title", formData.value.title);
+    }
+    if (formData.value.materi) {
+      dataForm.append("materi", formData.value.materi);
     }
     if (formData.value.duration) {
       dataForm.append("duration", formData.value.duration);

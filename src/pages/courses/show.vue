@@ -35,7 +35,12 @@
         <div
           class="bg-primary mt-5 rounded-full py-5 flex justify-between items-center px-10"
         >
-          <h4 class="text-xl font-bold text-white">{{ data.title }}</h4>
+          <section class="flex items-center gap-2">
+            <h4 class="text-xl font-bold text-white">{{ data.title }}</h4>
+            <Button @click="openNewTab(data.materi)" outline :hover="false" class="p-2">
+              Lihat Materi
+            </Button>
+          </section>
           <Button @click="saveProgress" outline :hover="false" class="p-2">
             Simpan Progress
           </Button>
@@ -72,6 +77,10 @@ const getFullUrl = (url) => {
 
   // Construct the full URL using the environment variable
   return `${import.meta.env.VITE_API_URI}/stream/${filename}`;
+};
+
+const openNewTab = (url) => {
+  window.open(url, "_blank");
 };
 
 const playVideoAtMinute = (time) => {

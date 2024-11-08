@@ -28,7 +28,7 @@ import { ref } from "vue";
 const data = ref([
   {
     title: "Tutorial Video Online ",
-    desc: "Yuk, tonton video seru di koleksi kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif !",
+    desc: "Yuk, tonton video seru di koleksi kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif!",
   },
   {
     title: "Google Meet Session",

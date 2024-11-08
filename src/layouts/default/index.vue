@@ -10,7 +10,7 @@
       <section class="lg:hidden" v-if="useSidebarStore().sidebar">
         <div class="fixed top-0 right-0 h-full z-50">
           <div
-            class="w-[300px] h-full dark:bg-[#1D1D1D] bg-[#F3F6F8] text-primary font-bold p-5 absolute top-0 right-0 z-50"
+            class="w-[300px] h-full dark:bg-[#1D1D1D] bg-[#F3F6F8] text-primary font-bold p-5 relative top-0 right-0 z-50"
           >
             <header class="flex justify-between items-center">
               <img class="h-[40px]" src="@/assets/images/logo.png" alt="logo" />
@@ -28,6 +28,24 @@
             <main class="mt-10">
               <sidebarMenu />
             </main>
+            <footer class="absolute left-0 bottom-6 px-3 w-[100%]">
+              <li class="cursor-pointer flex gap-2 px-2 mb-5 items-center">
+                <button
+                  @click="toggleDarkMode"
+                  class="bg-primary rounded-lg h-[40px] w-max p-2"
+                >
+                  <box-icon
+                    class="fill-white dark:fill-[#1D1D1D]"
+                    name="palette"
+                  ></box-icon>
+                </button>
+                <Button
+                  @click="$router.push('/login')"
+                  class="p-2 w-full h-[40px]"
+                  >Login</Button
+                >
+              </li>
+            </footer>
           </div>
         </div>
       </section>
@@ -51,12 +69,29 @@
         </div>
         <section class="lg:flex hidden">
           <ul class="flex gap-10 items-center text-primary font-semibold">
-            <li @click="scrollToId('halaman_utama')" class="cursor-pointer">Halaman Utama</li>
-            <li @click="scrollToId('program_kita')" class="cursor-pointer">Program Kita</li>
+            <li @click="scrollToId('halaman_utama')" class="cursor-pointer">
+              Halaman Utama
+            </li>
+            <li @click="scrollToId('program_kita')" class="cursor-pointer">
+              Program Kita
+            </li>
             <li @click="scrollToId('faq')" class="cursor-pointer">FAQ</li>
-            <li @click="scrollToId('contact')" class="cursor-pointer">Contact Us</li>
-            <li class="cursor-pointer">
-              <Button @click="$router.push('/login')" class="p-2">Login</Button>
+            <li @click="scrollToId('contact')" class="cursor-pointer">
+              Contact Us
+            </li>
+            <li class="cursor-pointer flex gap-2 items-center">
+              <button
+                @click="toggleDarkMode"
+                class="bg-primary rounded-lg h-[40px] w-max p-2"
+              >
+                <box-icon
+                  class="fill-white dark:fill-[#1D1D1D]"
+                  name="palette"
+                ></box-icon>
+              </button>
+              <Button @click="$router.push('/login')" class="p-2 h-[40px]"
+                >Login</Button
+              >
             </li>
           </ul>
         </section>
@@ -65,8 +100,10 @@
     <main class="mt-[90px]">
       <slot />
     </main>
-    <footer class="mt-20 h-full-[40px] bottom-0 text-center w-full md:px-[28px] py-[28px] dark:bg-[#1E2925] dark:text-white bg-[#FBF5F2]">
-      ©2024 Codeisfun. All rights reserved. 
+    <footer
+      class="mt-20 h-full-[40px] bottom-0 text-center w-full md:px-[28px] py-[28px] dark:bg-[#1E2925] dark:text-white bg-[#FBF5F2]"
+    >
+      ©2024 Codeisfun. All rights reserved.
     </footer>
   </div>
 </template>
@@ -82,24 +119,27 @@ const activeDropdown = ref(null);
 const setActiveDropdown = (index) => {
   activeDropdown.value = index;
 };
+import { useDarkModeStore } from "@/stores/darkmode";
 
+function toggleDarkMode() {
+  useDarkModeStore().toggle();
+}
 const scrollToId = (id) => {
   const element = document.getElementById(id);
   if (element) {
     const yOffset = -200; // Offset scroll sebesar -200px
-    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    const y =
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
     // Coba scroll dengan document.documentElement untuk kompatibilitas mobile
     document.documentElement.scrollTo({ top: y, behavior: "smooth" });
-    
+
     // Fallback jika scrollTo pada documentElement tidak berhasil
     if (document.documentElement.scrollTop === 0) {
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   }
 };
-
-
 
 const dropdownItems = [
   { label: "Tutorial Video Online", link: "#" },

@@ -2,15 +2,15 @@
   <div
     :class="
       fullscreen
-        ? 'justify-center top-0 left-0 z-50 w-screen h-screen flex items-center'
-        : 'asbolute bottom-16 right-16'
+        ? 'justify-center bg-primary top-0 left-0 z-50 w-screen h-screen flex items-center'
+        : 'asbolute md:bottom-8 md:right-8 bottom-3 right-3'
     "
     class="fixed"
   >
     <div
       v-if="active"
-      :class="fullscreen ? 'w-[70%] h-[70%]' : 'h-[450px] w-[350px]'"
-      class="bg-secondary shadow-lg p-5 rounded-3xl"
+      :class="fullscreen ? 'w-[90%] h-[90%] md:w-[70%] md:-[70%]' : 'h-[450px] w-[350px]'"
+      class="dark:bg-[#262626] dark:border dark:border-primary bg-secondary shadow-lg p-5 rounded-3xl"
     >
       <header class="flex gap-2 pb-4 justify-between items-center">
         <div class="flex gap-2 items-center">
@@ -19,7 +19,7 @@
             src="@/assets/images/profileDefault.png"
             alt="logo"
           />
-          Hexcub Bot
+          <span class="text-primary font-bold">Hexcub Bot</span>
         </div>
         <div class="flex gap-1">
           <div
@@ -36,7 +36,7 @@
             class="bg-primary w-10 h-10 flex items-center rounded-full justify-center"
           >
             <box-icon
-              class="cursor-pointer fill-white w-7 h-7"
+              class="cursor-pointer dark:fill-[#262626] fill-white w-7 h-7"
               type="solid"
               name="x-circle"
             ></box-icon>
@@ -94,8 +94,8 @@ const onSendMessage = async () => {
 
   chat.value.push({ isBot: false, message: message.value });
   const resp = await sendMessage(message.value);
-  chat.value.push({ isBot: true, message: resp });
   message.value = "";
+  chat.value.push({ isBot: true, message: resp });
 };
 
 let message = ref("");

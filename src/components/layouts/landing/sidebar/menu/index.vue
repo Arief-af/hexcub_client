@@ -19,7 +19,11 @@
             </section>
           </div>
           <Transition>
-            <div v-if="item.active" @click="scrollToId(item.path)" class="relative z-10 dark:text-[#828282]">
+            <div
+              v-if="item.active"
+              @click="scrollToId(item.path)"
+              class="relative z-10 dark:text-[#828282]"
+            >
               <div
                 v-for="subItem in item.subItem"
                 :key="subItem.name"
@@ -38,7 +42,7 @@
 <script setup>
 import { ref } from "vue";
 import { useSidebarStore } from "@/stores/sidebar";
-
+import Button from "@/components/button/index.vue";
 const sidebarStore = useSidebarStore();
 const scrollToId = (id) => {
   sidebarStore.toggle();
@@ -46,27 +50,32 @@ const scrollToId = (id) => {
   if (element) {
     element.scrollIntoView({ behavior: "smooth" });
   }
+};
+import { useDarkModeStore } from "@/stores/darkmode";
+
+function toggleDarkMode() {
+  useDarkModeStore().toggle();
 }
 // Data array
 const data = ref([
   {
     name: "Halaman Utama",
-    path: 'halaman_utama',
+    path: "halaman_utama",
     active: false,
   },
   {
     name: "Program Kita",
-    path: 'program_kita',
+    path: "program_kita",
     active: false,
   },
   {
     name: "FAQ",
-    path: 'faq',
+    path: "faq",
     active: false,
   },
   {
     name: "Contact Us",
-    path: 'contact',
+    path: "contact",
     active: false,
   },
 ]);

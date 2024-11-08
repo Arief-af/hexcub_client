@@ -21,9 +21,10 @@
           :data="data"
           :headers="[
             'id',
-            'video',
+            'Video',
             'Title',
-            'duration',
+            'Duration',
+            'Materi',
             'Created_at',
             'Updated_at',
           ]"
@@ -138,6 +139,7 @@ const fetchData = async (page = 1) => {
       file: getFullUrl(item.file),
       title: item.title,
       duration: item.duration,
+      materi: item.materi,
       created_at: item.created_at,
       updated_at: item.updated_at,
     }));
