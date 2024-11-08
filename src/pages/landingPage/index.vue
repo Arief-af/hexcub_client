@@ -52,7 +52,7 @@
                   >Apakah hexcub cocok untuk anak saya?</AccordionTrigger
                 >
                 <AccordionContent>
-                  Iya, hexcub cocok untuk anak-anak yang ingin belajar coding.
+                  Iya, hexcub cocok untuk anak-anak yang ingin belajar coding atau tertarik dengan teknologi dan matematika.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2" class="mt-4">

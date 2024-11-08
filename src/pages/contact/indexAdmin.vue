@@ -4,7 +4,7 @@
       <h4 class="text-xl font-bold text-primary">Kotak Masuk</h4>
       <div class="flex items-center justify-end">
         <div class="flex gap-2 dark:bg-[#1D1D1D] rounded-full px-5 py-1 mb-2">
-          <FormInput v-model="search" placeholder="Cari materi"></FormInput>
+          <FormInput v-model="search" placeholder="Cari Judul Pesan"></FormInput>
           <Button
             @click="fetchData()"
             v-model="search"
@@ -20,7 +20,7 @@
           :data="data"
           :headers="[
             'id',
-            'Subject',
+            'Judul',
             'Nama Lengkap',
             'Email',
             'No Telp',

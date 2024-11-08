@@ -28,15 +28,15 @@ import { ref } from "vue";
 const data = ref([
   {
     title: "Tutorial Video Online ",
-    desc: "Yuk, tonton video seru di koleksi kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif!",
+    desc: "Yuk, tonton video seru di koleksi kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif !",
   },
   {
     title: "Google Meet Session",
-    desc: "Jelajahi platform interaktif kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif!",
+    desc: "Yuk, ikuti sesi Google Meet seru kami untuk belajar coding langsung bareng mentor, tanya-jawab, dan tantangan coding secara real-time! Cocok untuk semua level.",
   },
   {
     title: "Puzzle Game",
-    desc: "Jelajahi platform interaktif kami yang mengenalkan dasar-dasar coding dengan cara yang asyik dan interaktif!",
+    desc: "Mainkan puzzle seru yang melatih logika dan keterampilan coding dengan cara asyik dan interaktif!",
   },
 ]);
 </script>
