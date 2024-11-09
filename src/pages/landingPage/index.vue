@@ -148,6 +148,7 @@ const onSendMessage = async () => {
   try {
     await authStore.sendMessage(formData.value);
     formData.value = {};
+    loading.hide();
     notif.showNotification("Pesan terkirim", "success");
   } catch (error) {
     notif.showNotification("Pesan gagal terkirim", "error");
