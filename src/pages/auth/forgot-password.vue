@@ -7,7 +7,7 @@
       <div class="text-2xl text-start mt-5 mb-5 font-semibold text-primary">
         Forgot Password
       </div>
-      <div class="text-sm">
+      <div class="text-sm dark:text-white">
         Masukan email anda dan kami akan mengirimkan link reset password
       </div>
       <form @submit.prevent="onSubmit">

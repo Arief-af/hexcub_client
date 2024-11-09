@@ -34,7 +34,7 @@
               v-model="formData.instructor"
               :marginBottom="true"
               type="text"
-              placeholder="Tanggal dan Waktu"
+              placeholder="Instructor"
               class="w-full mt-2"
             >
               <template #label>
@@ -47,7 +47,7 @@
               v-model="formData.url"
               :marginBottom="true"
               type="text"
-              placeholder="Tanggal dan Waktu"
+              placeholder="Url"
               class="w-full mt-2"
             >
               <template #label>
@@ -86,7 +86,11 @@ const fetchData = async () => {
   const loader = $loading.show({});
   try {
     const resp = await meetsStore.getData();
-    formData.value = resp.data.data;
+    // if data not empty store to formData
+    if (resp.data.data) {
+      formData.value = resp.data.data;
+    }
+    // formData.value = resp.data.data;
   } catch (error) {
     console.log(error);
   } finally {
@@ -97,10 +101,12 @@ const fetchData = async () => {
 const onSubmit = async () => {
   const loader = $loading.show({});
   try {
+    console.log(formData.value);
+    
     const resp = await meetsStore.post(formData.value);
     errors.value = {};
     notificationStore.showNotification("Berhasil diupdate", "success");
-    router.push("/courses/admin");
+    router.push("/google_meet/admin");
   } catch (error) {
     console.log(error);
     const errorData = error?.response?.data;

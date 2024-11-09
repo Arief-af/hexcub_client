@@ -34,7 +34,7 @@
             <video
               :src="row.file"
               controls
-              class="w-full mt-2 rounded-lg"
+              class="w-full min-w-[200px] mt-2 rounded-lg"
             ></video>
           </template>
           <template #action="{ row }">
