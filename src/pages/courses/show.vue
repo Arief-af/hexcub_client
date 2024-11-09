@@ -33,7 +33,7 @@
       </div>
       <section>
         <div
-          class="bg-primary mt-5 rounded-full py-5 flex justify-between items-center px-10"
+          class="bg-primary mt-5 rounded-full flex-wrap gap-2 py-5 flex justify-between items-center px-10"
         >
           <section class="flex items-center gap-2">
             <h4 class="text-xl font-bold text-white">{{ data.title }}</h4>
