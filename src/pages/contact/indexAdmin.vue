@@ -110,7 +110,7 @@ import DashboardLayout from "@/layouts/dashboard/index.vue";
 import { Button } from "@/components/ui/button/index.js";
 import { onMounted, ref } from "vue";
 import { useLoading } from "vue-loading-overlay";
-import { useAuthStore } from "../../stores/AuthStore";
+import { useAuthStore } from "@/stores/authStore";
 
 const $loading = useLoading({});
 const authStore = useAuthStore();
