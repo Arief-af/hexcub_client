@@ -11,7 +11,7 @@
            @click="$router.push('/profile')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon :class="route == '/profile' ? 'fill-white' : 'fill-primary'" class=" w-8 h-8" name="user"></box-icon>
+           <svg :class="route == '/profile' ? 'fill-white' : 'fill-primary'" class=" w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"/></svg>
         </div>
         <div
           v-if="!isAdmin"
@@ -19,7 +19,7 @@
            @click="$router.push('/courses')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name="book" :class="route == '/courses' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+          <svg :class="route == '/courses' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3zM5 8V5c0-.805.55-.988 1-1h13v12H5V8z"/><path d="M8 6h9v2H8z"/></svg>
         </div>
         <div
           v-else
@@ -27,7 +27,7 @@
            @click="$router.push('/courses/admin')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name="book" :class="route == '/courses/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+        <svg :class="route == '/courses/admin' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3zM5 8V5c0-.805.55-.988 1-1h13v12H5V8z"/><path d="M8 6h9v2H8z"/></svg>
         </div>
         <div
           v-if="!isAdmin"
@@ -35,7 +35,7 @@
            @click="$router.push('/puzzle')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name="dice-3" :class="route == '/puzzle' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+          <svg :class="route == '/puzzle' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"/><circle cx="8" cy="8" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="16" cy="16" r="1.5"/></svg>
         </div>
         <div
           v-if="!isAdmin"
@@ -43,7 +43,7 @@
            @click="$router.push('/google_meet')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name="video" :class="route == '/google_meet' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+        <svg :class="route == '/google_meet' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 7c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-3.333L22 17V7l-4 3.333V7zm-1.998 10H4V7h12l.001 4.999L16 12l.001.001.001 4.999z"/></svg>
         </div>
         <div
           v-else
@@ -51,7 +51,7 @@
            @click="$router.push('/google_meet/admin')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name="video" :class="route == '/google_meet/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+          <svg :class="route == '/google_meet/admin' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 7c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-3.333L22 17V7l-4 3.333V7zm-1.998 10H4V7h12l.001 4.999L16 12l.001.001.001 4.999z"/></svg>
         </div>
         <div
           v-if="isAdmin"
@@ -59,7 +59,7 @@
            @click="$router.push('/contact/admin')"
           class="w-14 h-14 cursor-pointer rounded-full flex items-center justify-center shadow"
         >
-          <box-icon name='message-dots' :class="route == '/contact/admin' ? 'fill-white' : 'fill-primary'" class=""></box-icon>
+          <svg :class="route == '/contact/admin' ? 'fill-white' : 'fill-primary'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3v3.766L13.277 18H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-7.277L9 18.234V16H4V4h16v12z"/><circle cx="15" cy="10" r="2"/><circle cx="9" cy="10" r="2"/></svg>
         </div>
       </div>
     </section>
@@ -114,20 +114,8 @@
             @click="toggleDarkMode"
             class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
           >
-            <box-icon
-              class="fill-white dark:fill-[#1D1D1D]"
-              name="palette"
-            ></box-icon>
+            <svg class="fill-white dark:fill-[#1D1D1D]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.4 2.096a10.08 10.08 0 0 0-8.937 3.331A10.054 10.054 0 0 0 2.096 13.4c.53 3.894 3.458 7.207 7.285 8.246a9.982 9.982 0 0 0 2.618.354l.142-.001a3.001 3.001 0 0 0 2.516-1.426 2.989 2.989 0 0 0 .153-2.879l-.199-.416a1.919 1.919 0 0 1 .094-1.912 2.004 2.004 0 0 1 2.576-.755l.412.197c.412.198.85.299 1.301.299A3.022 3.022 0 0 0 22 12.14a9.935 9.935 0 0 0-.353-2.76c-1.04-3.826-4.353-6.754-8.247-7.284zm5.158 10.909-.412-.197c-1.828-.878-4.07-.198-5.135 1.494-.738 1.176-.813 2.576-.204 3.842l.199.416a.983.983 0 0 1-.051.961.992.992 0 0 1-.844.479h-.112a8.061 8.061 0 0 1-2.095-.283c-3.063-.831-5.403-3.479-5.826-6.586-.321-2.355.352-4.623 1.893-6.389a8.002 8.002 0 0 1 7.16-2.664c3.107.423 5.755 2.764 6.586 5.826.198.73.293 1.474.282 2.207-.012.807-.845 1.183-1.441.894z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="7.5" cy="10.5" r="1.5"/><circle cx="10.5" cy="7.5" r="1.5"/><circle cx="14.5" cy="7.5" r="1.5"/></svg>
           </Button>
-
-          <!-- <Button
-            class="dark:bg-primary bg-primary hover:bg-primary hover:dark:bg-primary dark:text-[#1D1D1D] text-white"
-          >
-            <box-icon
-              class="fill-white dark:fill-[#1D1D1D]"
-              name="bell"
-            ></box-icon>
-          </Button> -->
 
           <Button
             @click="logout"

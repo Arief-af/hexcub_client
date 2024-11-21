@@ -13,10 +13,7 @@
           class="w-full md:w-max flex p-10 items-center lg:justify-center -mt-10 relative"
         >
           <section>
-            <box-icon
-              class="fill-primary hidden md:block w-14 h-14 absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-0"
-              name="chevrons-right"
-            ></box-icon>
+            <svg class="fill-primary hidden md:block w-14 h-14 absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg>
             <h4 class="dark:text-white text-[22px] font-bold">
               Selamat Datang di
               <span class="text-primary underline underline-offset-4"

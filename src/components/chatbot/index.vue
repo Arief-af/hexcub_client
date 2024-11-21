@@ -30,20 +30,13 @@
             @click="fullscreen = !fullscreen"
             class="bg-primary w-10 h-10 flex items-center rounded-full justify-center"
           >
-            <box-icon
-              class="cursor-pointer fill-white w-6 h-6"
-              name="fullscreen"
-            ></box-icon>
+          <svg  class="cursor-pointer fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"/></svg>
           </div>
           <div
             @click="toggleActive"
             class="bg-primary w-10 h-10 flex items-center rounded-full justify-center"
           >
-            <box-icon
-              class="cursor-pointer dark:fill-[#262626] fill-white w-7 h-7"
-              type="solid"
-              name="x-circle"
-            ></box-icon>
+          <svg class="cursor-pointer dark:fill-[#262626] fill-white w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z"/><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"/></svg>
           </div>
         </div>
       </header>
@@ -93,7 +86,7 @@
             type="submit"
             class="absolute right-0 inset-y-0 bg-primary flex items-center justify-center w-16 h-10 dark:bg-primary rounded-full hover:bg-primary dark:hover:bg-primary"
           >
-            <box-icon class="fill-white" name="send"></box-icon>
+            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"/></svg>
           </Button>
         </form>
       </footer>
