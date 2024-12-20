@@ -36,9 +36,60 @@
             >Kembali</Button
           >
           <Button
-            @click="isModalOpen = false"
+            @click="restartGame"
             class="bg-white text-red-500 hover:bg-white hover:text-red-500"
-            >Coba Lagi</Button
+            >Berikutnya</Button
+          >
+        </div>
+      </section>
+    </Modal>
+
+    <Modal
+      v-model="isReviewOpen"
+      title="Congrats!"
+      :primary="true"
+      @confirm="handleConfirm"
+    >
+      <section>
+        <p class="text-center text-xl font-bold text-white mt-5">
+           Level {{ level }} <br> Jawaban Kamu {{ win ? "Benar" : "Salah" }}! 
+        </p>
+        <div class="flex gap-5 mt-5">
+          <svg
+            v-for="i in winLevel"
+            class="w-12 h-12 text-yellow-300 ms-1"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 22 20"
+          >
+            <path
+              d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+            />
+          </svg>
+          <svg
+            v-for="i in loseLevel"
+            class="w-12 h-12 ms-1 text-gray-300 dark:text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 22 20"
+          >
+            <path
+              d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+            />
+          </svg>
+        </div>
+        <div class="flex mt-10 gap-2">
+          <Button
+            class="bg-primary text-white hover:bg-primary hover:text-white"
+            @click="goTo('/puzzle')"
+            >Kembali</Button
+          >
+          <Button
+            @click="nextLevel"
+            class="bg-white text-primary hover:bg-white hover:text-primary"
+            >{{ winLevel >= 2 ? "Next Level" : "Ulangi Level" }}</Button
           >
         </div>
       </section>
@@ -61,15 +112,39 @@
       <div class="absolute bottom-8 flex gap-2 right-20">
         <Button
           @click="toggleBGM"
-          class="px-[10px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white "
-          >
-          <svg v-if="isBGMPlaying" class="fill-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 21c3.527-1.547 5.999-4.909 5.999-9S19.527 4.547 16 3v2c2.387 1.386 3.999 4.047 3.999 7S18.387 17.614 16 19v2z"/><path d="M16 7v10c1.225-1.1 2-3.229 2-5s-.775-3.9-2-5zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20V4a1 1 0 0 0-1.554-.832L6.697 7H4c-1.103 0-2 .897-2 2v6c0 1.103.897 2 2 2zm0-8h3c.033 0 .061-.016.093-.019a1.027 1.027 0 0 0 .38-.116c.026-.015.057-.017.082-.033L12 5.868v12.264l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9z"/></svg>
-          <svg v-else class="fill-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m21.707 20.293-2.023-2.023A9.566 9.566 0 0 0 21.999 12c0-4.091-2.472-7.453-5.999-9v2c2.387 1.386 3.999 4.047 3.999 7a8.113 8.113 0 0 1-1.672 4.913l-1.285-1.285C17.644 14.536 18 13.19 18 12c0-1.771-.775-3.9-2-5v7.586l-2-2V4a1 1 0 0 0-1.554-.832L7.727 6.313l-4.02-4.02-1.414 1.414 18 18 1.414-1.414zM12 5.868v4.718L9.169 7.755 12 5.868zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20v-1.879l-2-2v2.011l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9h.879L3.102 7.223A1.995 1.995 0 0 0 2 9v6c0 1.103.897 2 2 2z"/></svg>
-          </Button
+          class="px-[10px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white"
         >
+          <svg
+            v-if="isBGMPlaying"
+            class="fill-white"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16 21c3.527-1.547 5.999-4.909 5.999-9S19.527 4.547 16 3v2c2.387 1.386 3.999 4.047 3.999 7S18.387 17.614 16 19v2z"
+            />
+            <path
+              d="M16 7v10c1.225-1.1 2-3.229 2-5s-.775-3.9-2-5zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20V4a1 1 0 0 0-1.554-.832L6.697 7H4c-1.103 0-2 .897-2 2v6c0 1.103.897 2 2 2zm0-8h3c.033 0 .061-.016.093-.019a1.027 1.027 0 0 0 .38-.116c.026-.015.057-.017.082-.033L12 5.868v12.264l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9z"
+            />
+          </svg>
+          <svg
+            v-else
+            class="fill-white"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m21.707 20.293-2.023-2.023A9.566 9.566 0 0 0 21.999 12c0-4.091-2.472-7.453-5.999-9v2c2.387 1.386 3.999 4.047 3.999 7a8.113 8.113 0 0 1-1.672 4.913l-1.285-1.285C17.644 14.536 18 13.19 18 12c0-1.771-.775-3.9-2-5v7.586l-2-2V4a1 1 0 0 0-1.554-.832L7.727 6.313l-4.02-4.02-1.414 1.414 18 18 1.414-1.414zM12 5.868v4.718L9.169 7.755 12 5.868zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20v-1.879l-2-2v2.011l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9h.879L3.102 7.223A1.995 1.995 0 0 0 2 9v6c0 1.103.897 2 2 2z"
+            />
+          </svg>
+        </Button>
         <Button
           @click="openModal"
-          class="px-[60px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white "
+          class="px-[60px] rounded-full bg-primary text-white dark:bg-primary dark:text-white hover:bg-primary hover:text-white"
           >Kirim</Button
         >
       </div>
@@ -194,11 +269,14 @@ import Modal from "@/components/modal/index.vue";
 import { useRouter } from "vue-router";
 import { useNotificationStore } from "../../stores/notification";
 
-const audioPop = ref(null);  // Reference for sound effect
-const bgmAudio = ref(null);  // Reference for background music
-const loseAudio = ref(null);  // Reference for background music
-const winAudio = ref(null);  // Reference for background music
-const warnAudio = ref(null);  // Reference for background music
+const audioPop = ref(null); // Reference for sound effect
+const bgmAudio = ref(null); // Reference for background music
+const loseAudio = ref(null); // Reference for background music
+const winAudio = ref(null); // Reference for background music
+const warnAudio = ref(null); // Reference for background music
+
+const gameStack = ref([]);
+const isReviewOpen = ref(false);
 
 const isBGMPlaying = ref(true);
 const notificationStore = useNotificationStore();
@@ -275,35 +353,73 @@ onMounted(() => {
   dropzone1.value = game.value[randomGame].options;
 });
 
+let winLevel = ref(0);
+let loseLevel = ref(0);
 const onSubmit = () => {
-  if (
+  const isCorrect =
     dropzone2.value[0].text == gameInit.value.name &&
-    dropzone3.value[0].text == gameInit.value.color
-  ) {
-    win.value = true;
-    playAudio(winAudio.value);
+    dropzone3.value[0].text == gameInit.value.color;
+
+  // Push hasil ke gameStack
+  gameStack.value.push(isCorrect);
+
+  // Cek kelipatan 3
+  if (gameStack.value.length % 3 === 0) {
+    win.value = isCorrect;
+    winLevel.value = countWin();
+    loseLevel.value = countLose();
+    isModalOpen.value = false;
+    isReviewOpen.value = true;
   } else {
-    win.value = false;
-    playAudio(loseAudio.value);
+    isModalOpen.value = true;
+    win.value = isCorrect;
+    playAudio(isCorrect ? winAudio.value : loseAudio.value);
   }
+
+  // Mainkan audio sesuai kondisi
+};
+
+let level = ref(1);
+
+const nextLevel = () => {
+  if (winLevel.value >= 2) {
+    restartGame();
+    isReviewOpen.value = false;
+    gameStack.value = [];
+    level.value++;
+  }else{
+    restartGame();
+    isReviewOpen.value = false;
+    gameStack.value = [];
+  }
+}
+
+const countWin = () => {
+  return gameStack.value.filter((i) => i).length;
+};
+
+const countLose = () => {
+  return gameStack.value.filter((i) => !i).length;
 };
 
 const handleDrop = (zone, event) => {
-  playAudio(audioPop.value)
+  playAudio(audioPop.value);
   if (!dragItem.value) return;
 
   // Cek apakah dropzone 2 atau 3 sudah penuh
   if (zone === 2 && dropzone2.value.length >= 1) {
-    playAudio(warnAudio.value)
+    playAudio(warnAudio.value);
     notificationStore.showNotification(
-      "Keluarkan dulu item ini untuk mengganti dengan item lain", "warning"
-    )
+      "Keluarkan dulu item ini untuk mengganti dengan item lain",
+      "warning"
+    );
     return;
   } else if (zone === 3 && dropzone3.value.length >= 1) {
-    playAudio(warnAudio.value)
+    playAudio(warnAudio.value);
     notificationStore.showNotification(
-      "Keluarkan dulu item ini untuk mengganti dengan item lain", "warning"
-    )
+      "Keluarkan dulu item ini untuk mengganti dengan item lain",
+      "warning"
+    );
     return;
   }
 
@@ -337,7 +453,6 @@ const isModalOpen = ref(false);
 
 const openModal = () => {
   onSubmit();
-  isModalOpen.value = true;
 };
 
 const handleConfirm = () => {
