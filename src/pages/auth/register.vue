@@ -34,7 +34,8 @@
 
       <div class="w-full gap-5">
         <section class="w-full">
-          <FormInput v-model="formData.password" type="text" placeholder="Password" class="w-full">
+          <FormInput
+            v-model="formData.password" type="password" placeholder="Password" class="w-full">
             <template #label
               ><span class="text-primary">Password</span></template
             >
@@ -43,8 +44,9 @@
         </section>
         <section class="w-full">
           <FormInput
+           
             v-model="formData.password_confirmation"
-            type="text"
+            type="password"
             placeholder="Konfirmasi Password"
             class="w-full"
           >

@@ -252,7 +252,7 @@ router.beforeEach((to, from, next) => {
 
   // Cek jika pengguna sudah login
   if (authStore.isLoggedIn) {
-    const userRole = authStore.user?.role.toLowerCase();
+    const userRole = authStore.user?.role?.toLowerCase() || 'defaultRole';;
 
     // Jika pengguna sudah login dan mencoba mengakses halaman login, arahkan ke halaman yang sesuai
     if (to.path === '/login' || to.path === '/register') {
