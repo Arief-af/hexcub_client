@@ -28,7 +28,7 @@ app.component("Notification", Notification);
 app.use(pinia);
 import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
-axios.defaults.baseURL = import.meta.env.VITE_API_URI;
+axios.defaults.baseURL = "https://hexcub.api.zqdevs.my.id";
 
 axios.interceptors.response.use(
   (response) => {
