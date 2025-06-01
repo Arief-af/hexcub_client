@@ -173,7 +173,7 @@ const routes = [
     component: HomePage,
     meta: {
       requiredAuth: true,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
@@ -183,7 +183,7 @@ const routes = [
     meta: {
       requiredAuth: false,
       requirePasien: false,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
@@ -192,7 +192,7 @@ const routes = [
     component: PuzzlePage,
     meta: {
       requiredAuth: true,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
@@ -202,7 +202,7 @@ const routes = [
     meta: {
       requiredAuth: true,
       requirePasien: true,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
@@ -212,7 +212,7 @@ const routes = [
     meta: {
       requiredAuth: true,
       requirePasien: true,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
@@ -223,7 +223,7 @@ const routes = [
       requiredAuth: true,
       requiredAdmin: true,
       requirePasien: true,
-      title: "ZQDevs - Home",
+      title: "Hexcub - Home",
     },
   },
   {
