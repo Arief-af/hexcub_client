@@ -9,10 +9,3 @@ services:
       VITE_API_URI: "https://hexcub.api.zqdevs.my.id"
       VITE_BASE_URL: "https://hexcub.zqdevs.my.id"
       VITE_GEMINI_API_KEY: "AIzaSyCiObDSuGSrZOFlEP60tT6wiw_FTzsQct8"
-  certbot:
-    build:
-      context: ./certbot
-    container_name: certbot
-    volumes:
-      - ./public:/var/www/app/public
-      - ./certbot/ssl:/etc/letsencrypt
