@@ -67,16 +67,7 @@ const router = useRouter();
 const id = router.currentRoute.value.params.id;
 
 const getFullUrl = (url) => {
-  if (!url) {
-    console.warn("URL is undefined or empty.");
-    return null; // or return a default URL if needed
-  }
-
-  // Remove the "files/" prefix from the URL
-  const filename = url.replace(/^files\//, "");
-
-  // Construct the full URL using the environment variable
-  return `${import.meta.env.VITE_API_URI}/stream/${filename}`;
+  return url;
 };
 
 const openNewTab = (url) => {

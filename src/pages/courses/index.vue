@@ -171,7 +171,7 @@ let data = ref([]);
 let search = ref("");
 const pagination = ref({});
 const getFullUrl = (url) => {
-  return import.meta.env.VITE_API_URI + "/" + url;
+  return url;
 };
 const fetchData = async (page = 1) => {
   const loader = $loading.show({});

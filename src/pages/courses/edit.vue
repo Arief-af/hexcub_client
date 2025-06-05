@@ -250,27 +250,7 @@ const fetchData = async () => {
 };
 
 const getFullUrl = (url) => {
-  // Check if URL is a Blob or URL object (for locally uploaded files), and if so, return it directly
-  if (url instanceof Blob || url instanceof URL || url.startsWith("blob:")) {
-    return url;
-  }
-
-  // Check if URL is undefined, null, or empty
-  if (!url || typeof url !== "string") {
-    console.warn("URL is undefined, empty, or not a string.");
-    return null; // or return a default URL if needed
-  }
-
-  // Skip transformation if URL is already an absolute path or from server
-  if (url.startsWith("http") || url.startsWith("/")) {
-    return url;
-  }
-
-  // Remove the "files/" prefix from the URL
-  const filename = url.replace(/^files\//, "");
-
-  // Construct the full URL using the environment variable
-  return `${import.meta.env.VITE_API_URI}/stream/${filename}`;
+  return url;
 };
 
 

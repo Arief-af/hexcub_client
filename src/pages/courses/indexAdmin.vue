@@ -158,7 +158,7 @@ const $loading = useLoading({});
 const videoStore = useVideoStore();
 
 const getFullUrl = (url) => {
-  return import.meta.env.VITE_API_URI + "/" + url;
+  return url;
 };
 
 let search = ref("");
