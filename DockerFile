@@ -22,7 +22,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir -p /var/www/certbot/.well-known /etc/ssl/private /etc/ssl/certs
 
 # Add init-cert script
-COPY certbot/init-cert /init-cert
+COPY certbot/init-cert.sh /init-cert
 RUN chmod +x /init-cert
 
 # Expose HTTP and HTTPS
