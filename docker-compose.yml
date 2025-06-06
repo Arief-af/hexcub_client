@@ -1,28 +1,24 @@
-version: "3.8"
-
+version: '3.8'
 services:
   hexcub:
     build:
       context: .
-      dockerfile: DockerFile
-    container_name: hexcub
+      dockerfile: Dockerfile
     ports:
-      - "80:80"         # Port 80 untuk certbot challenge
-      - "5173:5173"     # Optional: port dev server Vite jika perlu
-    volumes:
-      - ./public:/var/www/app/public    # Web root path untuk certbot challenge
-      - ./certbot/ssl:/etc/letsencrypt  # Share certs ke certbot
+      - "80:80"
+      - "443:443"
     environment:
-      VITE_API_URI: "https://hexcub.api.zqdevs.my.id"
+      VITE_API_URI: "https://hexcubapi.zqdevs.my.id"
       VITE_BASE_URL: "https://hexcub.zqdevs.my.id"
       VITE_GEMINI_API_KEY: "AIzaSyCiObDSuGSrZOFlEP60tT6wiw_FTzsQct8"
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
 
   certbot:
-    build:
-      context: ./certbot
+    image: certbot/certbot
     container_name: certbot
-    depends_on:
-      - hexcub
     volumes:
-      - ./public:/var/www/app/public      # Harus sama dengan webroot dari nginx/Vite
-      - ./certbot/ssl:/etc/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email afn.happy@gmail.com -d hexcub.zqdevs.my.id --agree-tos
